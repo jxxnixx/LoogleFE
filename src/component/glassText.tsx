@@ -1,11 +1,15 @@
 'use client'
 
-import { Suspense } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import { ContactShadows, Environment, Float, Lightformer, MeshTransmissionMaterial, Text3D } from '@react-three/drei'
-import { Canvas, useFrame } from '@react-three/fiber'
+import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { easing } from 'maath'
 
-const GlassText = () => {
+type Props = {
+	children?: string
+}
+
+const GlassText = ({ children }: Props) => {
 	return (
 		<Text3D
 			font='/font/Lonely Coffee_Regular.json'
@@ -18,7 +22,7 @@ const GlassText = () => {
 			bevelOffset={0}
 			bevelSegments={5}
 			position={[-5, 0.5, 0]}>
-			Loogle
+			{children}
 			<MeshTransmissionMaterial
 				thickness={0.5}
 				roughness={0.1}
@@ -46,15 +50,33 @@ const GlassText = () => {
 }
 
 const Rig = () => {
+	const [cursorVisible, setCursorVisible] = useState(true)
+	const { gl } = useThree()
+
+	useEffect(() => {
+		const handleMouseLeave = () => setCursorVisible(false)
+		const handleMouseEnter = () => setCursorVisible(true)
+
+		gl.domElement.addEventListener('mouseleave', handleMouseLeave)
+		gl.domElement.addEventListener('mouseenter', handleMouseEnter)
+
+		return () => {
+			gl.domElement.removeEventListener('mouseleave', handleMouseLeave)
+			gl.domElement.removeEventListener('mouseenter', handleMouseEnter)
+		}
+	}, [gl])
+
 	useFrame((state, delta) => {
+		const pointer = cursorVisible ? state.pointer : { x: 0, y: 0 }
 		easing.damp3(
 			state.camera.position,
-			[Math.sin(-state.pointer.x) * 5, state.pointer.y * 3.5, 15 + Math.cos(state.pointer.x) * 10],
+			[Math.sin(-pointer.x) * 5, Math.sin(-pointer.y) * 5, 15 + Math.cos(pointer.x) * 3],
 			0.2,
 			delta
 		)
 		state.camera.lookAt(0, 0, 0)
 	})
+
 	return null
 }
 
@@ -65,15 +87,11 @@ const Scene = () => {
 				<color attach='background' args={['#c1d8ff']} />
 
 				<spotLight position={[20, 20, -10]} penumbra={1} castShadow angle={0.2} />
-
 				<ambientLight intensity={0.5} />
 				<directionalLight intensity={0.5} position={[-5, 5, -15]} />
-				<directionalLight intensity={0.5} position={[5, -5, -10]} />
 				<pointLight intensity={0.5} position={[-5, -5, -10]} />
-				<pointLight intensity={0.5} position={[5, 5, -15]} />
-				<spotLight intensity={0.5} position={[0, 5, 10]} angle={0.3} penumbra={1} />
 
-				<ContactShadows scale={100} position={[0, -7.5, 0]} blur={1} far={100} opacity={0.85} />
+				<ContactShadows scale={100} position={[0, -5.5, 0]} blur={1} far={100} opacity={0.85} />
 
 				<Environment>
 					<color attach='background' args={['#c1d8ff']} />
@@ -87,7 +105,7 @@ const Scene = () => {
 
 				<Suspense fallback={null}>
 					<Float floatIntensity={2}>
-						<GlassText />
+						<GlassText>LOOGLE</GlassText>
 					</Float>
 				</Suspense>
 
