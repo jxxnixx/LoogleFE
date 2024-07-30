@@ -1,3 +1,47 @@
 {
-  "extends": "next/core-web-vitals"
+	"extends": [
+		"next/core-web-vitals",
+		"eslint:recommended",
+		"plugin:react/recommended",
+		"plugin:@typescript-eslint/recommended",
+		"plugin:@typescript-eslint/recommended-requiring-type-checking",
+		"prettier"
+	],
+	"parser": "@typescript-eslint/parser",
+	"parserOptions": {
+		"ecmaFeatures": {
+			"jsx": true
+		},
+
+		"ecmaVersion": "latest",
+		"sourceType": "module",
+		"project": "./tsconfig.json"
+	},
+	"plugins": ["simple-import-sort", "import", "@typescript-eslint/eslint-plugin"],
+	"rules": {
+		// "react/react-in-jsx-scope": "off", // import React from 'react' 필요 없음
+
+		"no-unused-vars": "warn", // 안 쓰는 변수
+		"no-undef": "warn", // 선언하지 않은 변수 사용
+
+		"react/no-unescaped-entities": "warn", // JSX에서 특수문자를 사용할 때 이스케이프 처리를 해야 함
+
+		"@typescript-eslint/no-unused-vars": "warn", // 안 쓰는 변수
+		"@typescript-eslint/no-explicit-any": "warn", // any 사용
+
+		"simple-import-sort/imports": [
+			"error",
+			{
+				"groups": [
+					["^react", "^@?\\w"], // React
+					["^(@|components)(/.*|$)"], // @로 시작하는 모듈과 components로 시작하는 모듈
+					["^\\u0000"], // Node.js 내장 모듈
+					["^\\.\\.(?!/?$)", "^\\.\\./?$"], // 상대 경로
+					["^\\./(?=.*/)(?!/?$)", "^\\.(?!/?$)", "^\\./?$"], // 현재 경로
+					["^.+\\.?(css)$"] // CSS 파일
+				]
+			}
+		],
+		"simple-import-sort/exports": "error"
+	}
 }
