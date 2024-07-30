@@ -1,4 +1,4 @@
 node_modules/
 next.config.js
-.eslintcache
+eslintcache
 *.js
