@@ -1,0 +1,53 @@
+.searchBar {
+	position: relative;
+
+	min-width: 380px;
+	max-width: 500px;
+
+	width: 50%;
+	height: 100%;
+}
+
+.magnifier {
+	position: absolute;
+
+	top: 20%;
+	left: 3%;
+
+	color: rgb(106, 154, 233);
+
+	width: 24px;
+	height: 24px;
+
+	z-index: 2;
+}
+
+.input {
+	position: relative;
+
+	width: 100%;
+	height: 100%;
+
+	border: 2px solid rgb(106, 154, 233);
+	border-radius: 20px;
+
+	background-color: white;
+
+	padding-inline: 10%;
+
+	color: black;
+}
+
+.camera {
+	position: absolute;
+
+	top: 20%;
+	right: 3%;
+
+	color: rgb(106, 154, 233);
+
+	width: 24px;
+	height: 24px;
+
+	z-index: 2;
+}
