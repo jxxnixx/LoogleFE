@@ -15,7 +15,11 @@ const SearchBar = () => {
 
 	return (
 		<label className={styles.searchBar}>
-			<Icon path='magnifier' alt='search' className={styles.magnifier} />
+			<div className={styles.icon}>
+				<Icon path='magnifier' alt='search' className={styles.magnifier} />
+			</div>
+
+			{/* <label></label> */}
 			<input
 				type='text'
 				placeholder='Search'
@@ -23,7 +27,9 @@ const SearchBar = () => {
 				value={searchValue}
 				onChange={handleInputChange}
 			/>
-			<Icon path='camera' alt='camera' className={styles.camera} />
+			<button className={styles.button}>
+				<Icon path='camera' alt='camera' className={styles.camera} />
+			</button>
 		</label>
 	)
 }

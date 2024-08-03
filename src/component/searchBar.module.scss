@@ -5,15 +5,24 @@
 	max-width: 500px;
 
 	width: 50%;
+	height: 40px;
+}
+
+.icon {
+	position: absolute;
+
+	@include flex(row, xCenter, yCenter);
+
+	top: 0;
+	left: 0;
+
+	margin-left: 11px;
+
+	width: 24px;
 	height: 100%;
 }
 
 .magnifier {
-	position: absolute;
-
-	top: 20%;
-	left: 3%;
-
 	color: $primary-default;
 
 	width: 24px;
@@ -32,18 +41,29 @@
 	border-radius: 20px;
 
 	background-color: $white;
-
-	padding-inline: 10%;
+	padding-inline: 40px;
 
 	color: black;
 }
 
-.camera {
+.button {
 	position: absolute;
 
-	top: 20%;
-	right: 3%;
+	@include flex(row, left, yCenter);
 
+	top: 0;
+	right: 0;
+
+	width: 36px;
+	height: 100%;
+
+	padding-right: 6px;
+	padding-bottom: 1px;
+
+	z-index: 2;
+}
+
+.camera {
 	color: $primary-default;
 
 	width: 24px;
