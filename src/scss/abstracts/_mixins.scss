@@ -1,0 +1,207 @@
+@use './variables' as *;
+
+@mixin FontSize($size, $weight) {
+	font-size: $size * $px;
+	@include FontWeight($weight);
+}
+
+// @mixin GraBlue();
+// @mixin GraPurple();
+
+@mixin Tablet() {
+	@media screen and (max-width: $tablet) {
+		@content;
+	}
+}
+
+@mixin Mobile() {
+	@media screen and (max-width: $mobile) {
+		@content;
+	}
+}
+
+@mixin dynamicSize(
+	$property,
+	$size,
+	$tabletSize: $size,
+	$mobileSize: $tabletSize,
+	$mobileOnlySize: $mobileSize,
+	$folderSize: $mobileOnlySize
+) {
+	#{$property}: $size;
+
+	@include Tablet() {
+		#{$property}: $tabletSize;
+	}
+
+	@include Mobile() {
+		#{$property}: $mobileSize;
+	}
+
+	@include MobileOnly() {
+		#{$property}: $mobileOnlySize;
+	}
+
+	@include Folder() {
+		#{$property}: $folderSize;
+	}
+}
+
+@mixin dynamicFontSize($size, $tabletSize: $size, $mobileSize: $tabletSize, $weight) {
+	@include FontSize($size, $weight);
+
+	@include Tablet() {
+		@include FontSize($tabletSize, $weight);
+	}
+
+	@include Mobile() {
+		@include FontSize($mobileSize, $weight);
+	}
+}
+
+@mixin flexBasic($direction: row, $wrap: nowrap, $justify: flex-start, $alignItems: stretch, $alignContent: stretch) {
+	display: flex;
+	flex-direction: $direction;
+	flex-wrap: $wrap;
+	justify-content: $justify;
+	align-items: $alignItems;
+	align-content: $alignContent;
+}
+
+@mixin flex($axis: null, $param1: null, $param2: null, $param3: null, $param4: null) {
+	$direction: if(
+		$axis == x,
+		row,
+		if($axis == y, column, if($axis == -x, row-reverse, if($axis == -y, column-reverse, row)))
+	);
+
+	$wrapValue: null;
+	$justifyValue: null;
+	$alignValue: null;
+	$alignContentValue: null;
+
+	@each $param in $param1, $param2, $param3, $param4 {
+		@if $param {
+			@if $param == wrap {
+				$wrapValue: wrap;
+			} @else if index(left right xCenter xAround xEvenly xBetween, $param) {
+				$alignment: if(index(row row-reverse, $direction), $justifyValue, $alignValue);
+				$alignment: if(
+					$param == left,
+					flex-start,
+					if(
+						$param == right,
+						flex-end,
+						if(
+							$param == xCenter,
+							center,
+							if($param == xAround, space-around, if($param == xEvenly, space-evenly, space-between))
+						)
+					)
+				);
+				@if index(row row-reverse, $direction) {
+					$justifyValue: $alignment;
+				} @else {
+					$alignValue: $alignment;
+				}
+			} @else if index(top bottom yCenter yAround yEvenly yBetween, $param) {
+				$alignment: if(index(row row-reverse, $direction), $alignValue, $justifyValue);
+				$alignment: if(
+					$param == top,
+					flex-start,
+					if(
+						$param == bottom,
+						flex-end,
+						if(
+							$param == yCenter,
+							center,
+							if($param == yAround, space-around, if($param == yEvenly, space-evenly, space-between))
+						)
+					)
+				);
+				@if index(row row-reverse, $direction) {
+					$alignValue: $alignment;
+				} @else {
+					$justifyValue: $alignment;
+				}
+			} @else if
+				index(
+					xContentStretch
+						xContentCenter
+						xContentStart
+						xContentEnd
+						xContentAround
+						xContentEvenly
+						xContentBetween
+						yContentStretch
+						yContentCenter
+						yContentStart
+						yContentEnd
+						yContentAround
+						yContentEvenly
+						yContentBetween,
+					$param
+				)
+			{
+				$alignmentContent: if(index(row row-reverse, $direction), $alignContentValue, $alignContentValue);
+				$alignmentContent: if(
+					index(
+						yContentStretch yContentCenter yContentStart yContentEnd yContentAround yContentEvenly yContentBetween,
+						$param
+					),
+					if(
+						$param == yContentStretch,
+						stretch,
+						if(
+							$param == yContentCenter,
+							center,
+							if(
+								$param == yContentStart,
+								flex-start,
+								if(
+									$param == yContentEnd,
+									flex-end,
+									if($param == yContentAround, space-around, if($param == yContentEvenly, space-evenly, space-between))
+								)
+							)
+						)
+					),
+					if(
+						$param == xContentStretch,
+						stretch,
+						if(
+							$param == xContentCenter,
+							center,
+							if(
+								$param == xContentStart,
+								flex-start,
+								if(
+									$param == xContentEnd,
+									flex-end,
+									if($param == xContentAround, space-around, if($param == xContentEvenly, space-evenly, space-between))
+								)
+							)
+						)
+					)
+				);
+				$alignContentValue: $alignmentContent;
+			}
+		}
+	}
+
+	display: flex;
+	flex-direction: $direction;
+
+	@if $wrapValue {
+		flex-wrap: $wrapValue;
+	}
+	@if $justifyValue {
+		justify-content: $justifyValue;
+	}
+	@if $alignValue {
+		align-items: $alignValue;
+	}
+	@if $alignContentValue {
+		align-content: $alignContentValue;
+	}
+}
