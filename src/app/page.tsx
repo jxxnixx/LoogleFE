@@ -1,31 +1,18 @@
 import React from 'react'
 
+import FillImg from '@/component/base/fillImg'
 import Scene from '@/component/glassText'
+import SearchBar from '@/component/searchBar'
+
+import styles from './landing.module.scss'
 
 export default function Home() {
 	return (
-		<main>
-			<div
-				style={{
-					position: 'absolute',
-					display: 'flex',
-					justifyContent: 'center',
-					alignItems: 'center',
-					top: '50%',
-					width: '100vw',
-					height: '40px',
-					zIndex: 1,
-				}}>
-				<input
-					style={{
-						minWidth: '380px',
-						maxWidth: '500px',
-						width: '50%',
-						height: '100%',
-						border: '1px solid navy',
-						borderRadius: '20px',
-						backgroundColor: 'white',
-					}}></input>
+		<main className={styles.landing}>
+			<FillImg src='/image/gradientBackground.png' alt='background' className={styles.background} />
+			{/* <FillImg src='/image/file.png' alt='background' className={styles.background} /> */}
+			<div className={styles.searchBarArea}>
+				<SearchBar />
 			</div>
 			<Scene />
 		</main>
