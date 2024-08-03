@@ -2,7 +2,8 @@
 
 @mixin FontSize($size, $weight) {
 	font-size: $size * $px;
-	@include FontWeight($weight);
+	font-variation-settings: 'wght' $weight;
+	font-weight: $weight;
 }
 
 // @mixin GraBlue();

@@ -1,0 +1,115 @@
+.search {
+	@include flex(y, xCenter, top);
+
+	width: 100vw;
+	height: 100vh;
+
+	overflow-y: scroll;
+
+	.background {
+		position: relative;
+
+		display: flex;
+
+		top: 0;
+		bottom: 0;
+
+		width: 100%;
+		height: 100%;
+
+		overflow: hidden;
+
+		object-position: bottom;
+		touch-action: none;
+		pointer-events: none;
+
+		// z-index: 1;
+	}
+
+	.max {
+		width: 100%;
+		max-width: 1200px;
+
+		padding-inline: 20px;
+
+		.header {
+			width: 100%;
+			height: 80px;
+
+			@include flex(x, left, yCenter);
+
+			padding-inline: 10px;
+			padding-block: 20px;
+
+			z-index: 1;
+
+			.loogle {
+				width: fit-content;
+				height: 50px;
+
+				@include flex(x, left, yCenter);
+				@include dynamicFontSize(24, 24, 24, 700);
+
+				margin-right: 20px;
+
+				color: $white;
+
+				z-index: 2;
+			}
+
+			.searchBarArea {
+				width: 60%;
+				height: 40px;
+			}
+		}
+
+		.content {
+			width: 100%;
+
+			padding: 20px;
+
+			background: rgba(255, 255, 255, 0.08);
+			border-radius: 20px;
+			box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
+
+			backdrop-filter: blur(10px);
+			-webkit-backdrop-filter: blur(10px);
+		}
+
+		.wrap {
+			width: 100%;
+			height: fit-content;
+
+			@include flex(x, wrap, left, top);
+
+			overflow-y: scroll;
+
+			.space {
+				width: 210px; // 기본 너비 설정
+				height: auto;
+				aspect-ratio: 3/4;
+
+				@include flex(y, yCenter);
+
+				flex-grow: 1;
+				flex-shrink: 0; // 요소의 축소를 방지
+
+				padding: 14px;
+
+				// border: 1px solid #b2bec3;
+
+				.item {
+					width: 100%;
+					height: auto;
+					aspect-ratio: 3/4;
+
+					padding: 10px;
+
+					border: 1px solid #b2bec3;
+					border-radius: 20px;
+					text-align: center;
+				}
+			}
+		}
+	}
+}
