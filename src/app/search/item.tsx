@@ -1,4 +1,5 @@
 import React from 'react'
+import Link from 'next/link'
 
 import FillImg from '@/component/base/fillImg'
 
@@ -9,16 +10,19 @@ type Props = {
 	brand: string
 	price: string
 	similarity: number
-	imgUrls: string | string[]
+	imgUrls: string
+	href: string
 }
 
-const Item = ({ title, brand, price, similarity, imgUrls }: Props) => {
+const Item = ({ title, brand, price, similarity, imgUrls, href }: Props) => {
+	console.log(imgUrls)
+
 	return (
 		<div className={styles.space}>
 			<div className={styles.item}>
-				<div className={styles.img}>
-					<FillImg src={imgUrls[0]} alt='img' className={styles.resultImg} />
-				</div>
+				<Link href={href} className={styles.img}>
+					{/* <FillImg src={imgUrls} alt='img' /> */}
+				</Link>
 				<div className={styles.info}>
 					<div className={styles.desc}>
 						<div className={styles.title}>{title}</div>

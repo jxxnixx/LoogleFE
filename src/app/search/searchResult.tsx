@@ -24,6 +24,8 @@ const SearchResult = () => {
 
 	const { productIds, similarities, products } = searchResult
 
+	console.log(searchResult)
+
 	return (
 		<div className={styles.wrap}>
 			{productIds.map((productId: any, index: number) => (
@@ -33,7 +35,8 @@ const SearchResult = () => {
 					brand={products[index].brand}
 					price={products[index].price}
 					similarity={similarities[index]}
-					imgUrls={products[index].imgUrls}
+					imgUrls={products[index].imgUrls[0]}
+					href={products[index].href}
 				/>
 			))}
 		</div>
