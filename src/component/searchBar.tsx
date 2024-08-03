@@ -1,10 +1,11 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
+import imageCompression from 'browser-image-compression'
 import { atom, useAtom } from 'jotai'
 import { useRouter } from 'next/navigation'
 
-import { getKeywordSearchResult } from '@/api/api'
+import { getKeywordSearchResult, postImageAndGetSearchResult } from '@/api/api'
 
 import Icon from './base/icon'
 
@@ -16,6 +17,7 @@ export const loadingAtom = atom<boolean>(false)
 
 const SearchBar = () => {
 	const [searchValue, setSearchValue] = useState('')
+	const [imageFile, setImageFile] = useState<File | null>(null)
 
 	const [_, searchValueSet] = useAtom(inputValueAtom)
 	const [searchResult, setsearchResult] = useAtom(searchResultAtom)
@@ -42,13 +44,49 @@ const SearchBar = () => {
 			}
 		}
 	}
+
+	const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		if (event.target.files && event.target.files[0]) {
+			setImageFile(event.target.files[0])
+		}
+	}
+
+	const handleImageSearch = async () => {
+		if (imageFile) {
+			try {
+				const compressedImage = await compressImage(imageFile)
+				const data = await postImageAndGetSearchResult(compressedImage)
+
+				setsearchResult(data[0])
+
+				router.push(`/search`)
+			} catch (error) {
+				console.error('Error uploading image:', error)
+			}
+		}
+	}
+
+	const compressImage = async (imageFile: File) => {
+		const options = {
+			maxSizeMB: 1,
+			maxWidthOrHeight: 1920,
+			useWebWorker: true,
+		}
+		try {
+			const compressedFile = await imageCompression(imageFile, options)
+			return compressedFile
+		} catch (error) {
+			console.error('Error compressing image:', error)
+			throw error
+		}
+	}
+
 	return (
 		<label className={styles.searchBar}>
 			<div className={styles.icon}>
 				<Icon path='magnifier' alt='search' className={styles.magnifier} />
 			</div>
 
-			{/* <label></label> */}
 			<input
 				type='text'
 				placeholder='Search'
@@ -57,11 +95,22 @@ const SearchBar = () => {
 				onChange={handleInputChange}
 				onKeyDown={handleKeyDown}
 			/>
-			<button className={styles.button}>
-				<Icon path='camera' alt='camera' className={styles.camera} />
-			</button>
+
+			<input type='file' accept='image/*' id='imageUpload' onChange={handleImageChange} />
+			<label htmlFor='imageUpload'>
+				<button className={styles.button} onClick={handleImageSearch}>
+					<Icon path='camera' alt='camera' className={styles.camera} />
+				</button>
+			</label>
 		</label>
 	)
 }
 
 export default SearchBar
+
+import axios from 'axios'
+
+export const api = axios.create({
+	baseURL: '/',
+	withCredentials: true,
+})
