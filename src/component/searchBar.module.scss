@@ -1,0 +1,76 @@
+.searchBar {
+	position: relative;
+
+	min-width: 380px;
+	max-width: 500px;
+
+	width: 50%;
+	height: 40px;
+
+}
+
+.icon {
+	position: absolute;
+
+	@include flex(row, xCenter, yCenter);
+
+	top: 0;
+	left: 0;
+
+	margin-left: 11px;
+
+	width: 24px;
+	height: 100%;
+}
+
+.magnifier {
+	color: $primary-default;
+
+	width: 24px;
+	height: 24px;
+
+	z-index: 2;
+}
+
+.input {
+	position: relative;
+
+	width: 100%;
+	height: 100%;
+
+	border: 2px solid $primary-default;
+	border-radius: 20px;
+
+	background-color: $white;
+	padding-inline: 40px;
+
+	color: black;
+
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.button {
+	position: absolute;
+
+	@include flex(row, left, yCenter);
+
+	top: 0;
+	right: 0;
+
+	width: 36px;
+	height: 100%;
+
+	padding-right: 6px;
+	padding-bottom: 1px;
+
+	z-index: 2;
+}
+
+.camera {
+	color: $primary-default;
+
+	width: 24px;
+	height: 24px;
+
+	z-index: 2;
+}

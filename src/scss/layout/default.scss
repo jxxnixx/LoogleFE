@@ -1,0 +1,37 @@
+@use '@/scss/abstracts/index' as *;
+
+:root {
+	--px: #{$root-font};
+	font-size: $root-font * $px;
+}
+
+body {
+	overflow-anchor: none;
+}
+
+* {
+	font-variation-settings: 'wght' 500;
+	font-family:
+		'Pretendard Variable',
+		Pretendard,
+		-apple-system,
+		BlinkMacSystemFont,
+		system-ui,
+		Roboto,
+		'Helvetica Neue',
+		'Segoe UI',
+		'Apple SD Gothic Neo',
+		'Noto Sans KR',
+		'Malgun Gothic',
+		'Apple Color Emoji',
+		'Segoe UI Emoji',
+		'Segoe UI Symbol',
+		sans-serif;
+}
+
+svg {
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}

@@ -1,0 +1,22 @@
+@use './colors' as *;
+
+$line-height: 1.5;
+$root-font: 16;
+$current: var(--px, $root-font);
+$rem: 0.1rem;
+$px: 1px;
+$vw: 0.1vw;
+
+$tablet: 1200px;
+$mobile: 900px;
+
+////color
+
+$white: $color-white;
+$black: $color-black;
+
+//// primary
+$primary-default: $color-skyblue;
+
+//// secondary
+$secondary-default: $color-lightPurple;
