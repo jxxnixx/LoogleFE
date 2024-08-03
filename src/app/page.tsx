@@ -1,7 +1,7 @@
 import React from 'react'
 
 import FillImg from '@/component/base/fillImg'
-import Scene from '@/component/glassText'
+import GlassText from '@/component/glassText'
 import SearchBar from '@/component/searchBar'
 
 import styles from './landing.module.scss'
@@ -14,7 +14,7 @@ export default function Home() {
 			<div className={styles.searchBarArea}>
 				<SearchBar />
 			</div>
-			<Scene />
+			<GlassText />
 		</main>
 	)
 }
