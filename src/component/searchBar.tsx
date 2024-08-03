@@ -1,16 +1,22 @@
 'use client'
 
 import React, { useState } from 'react'
+import { atom, useAtom } from 'jotai'
+
+import { store } from '@/utilities/jotai'
 
 import Icon from './base/icon'
 
 import styles from './searchBar.module.scss'
 
+export const inputValueAtom = atom<string>('')
+
 const SearchBar = () => {
-	const [searchValue, setSearchValue] = useState('')
+	const [searchValue, setSearchValue] = useAtom(inputValueAtom)
 
 	const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setSearchValue(event.target.value)
+		const value = event.target.value
+		setSearchValue(value)
 	}
 
 	return (
