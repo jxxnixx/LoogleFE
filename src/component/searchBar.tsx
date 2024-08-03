@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'
 
-import Icon from './base/Icon'
+import Icon from './base/icon'
 
 import styles from './searchBar.module.scss'
 

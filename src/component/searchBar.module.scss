@@ -14,7 +14,7 @@
 	top: 20%;
 	left: 3%;
 
-	color: rgb(106, 154, 233);
+	color: $primary-default;
 
 	width: 24px;
 	height: 24px;
@@ -28,10 +28,10 @@
 	width: 100%;
 	height: 100%;
 
-	border: 2px solid rgb(106, 154, 233);
+	border: 2px solid $primary-default;
 	border-radius: 20px;
 
-	background-color: white;
+	background-color: $white;
 
 	padding-inline: 10%;
 
@@ -44,7 +44,7 @@
 	top: 20%;
 	right: 3%;
 
-	color: rgb(106, 154, 233);
+	color: $primary-default;
 
 	width: 24px;
 	height: 24px;
