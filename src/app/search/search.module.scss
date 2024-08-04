@@ -59,7 +59,8 @@
 
 			.searchBarArea {
 				width: 60%;
-				height: 40px;
+
+				height: 100%;
 			}
 		}
 
@@ -68,9 +69,9 @@
 
 			padding: 20px;
 
-			background: rgba(255, 255, 255, 0.08);
+			background: rgba($white, 0.08);
 			border-radius: 20px;
-			box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
+			box-shadow: 0 4px 30px rgba($black, 0.08);
 
 			backdrop-filter: blur(10px);
 			-webkit-backdrop-filter: blur(10px);
@@ -99,15 +100,66 @@
 				// border: 1px solid #b2bec3;
 
 				.item {
+					position: relative;
+
 					width: 100%;
 					height: auto;
 					aspect-ratio: 3/4;
 
-					padding: 10px;
+					padding: 14px;
 
 					border: 1px solid #b2bec3;
 					border-radius: 20px;
 					text-align: center;
+
+					overflow: hidden;
+					object-fit: cover;
+
+					@include flex(y, bottom);
+
+					.link {
+						width: 100%;
+						height: 100%;
+
+						.img {
+						}
+					}
+
+					.info {
+						position: relative;
+
+						width: 100%;
+						height: 30%;
+
+						.desc {
+							position: absolute;
+
+							left: 0;
+
+							@include flex(y, left, top);
+						}
+
+						.title {
+							@include dynamicFontSize(18, 16, 14, 500);
+						}
+
+						.details {
+							@include flex(y, left, top);
+
+							span {
+								@include dynamicFontSize(16, 14, 12, 300);
+							}
+						}
+
+						.ratio {
+							position: absolute;
+
+							@include dynamicFontSize(20, 18, 16, 700);
+
+							right: 0;
+							bottom: 0;
+						}
+					}
 				}
 			}
 		}

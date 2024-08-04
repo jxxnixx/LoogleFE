@@ -8,30 +8,30 @@ import styles from './search.module.scss'
 type Props = {
 	title: string
 	brand: string
-	price: string
+	price: number
 	similarity: number
 	imgUrls: string
 	href: string
 }
 
 const Item = ({ title, brand, price, similarity, imgUrls, href }: Props) => {
-	console.log(imgUrls)
+	const truncatedSimilarity = Math.floor(similarity * 100) / 100
 
 	return (
 		<div className={styles.space}>
 			<div className={styles.item}>
-				<Link href={href} className={styles.img}>
-					{/* <FillImg src={imgUrls} alt='img' /> */}
+				<Link href={href} className={styles.link}>
+					<FillImg src={imgUrls} alt='img' className={styles.img} />
 				</Link>
 				<div className={styles.info}>
 					<div className={styles.desc}>
 						<div className={styles.title}>{title}</div>
-						<div className={styles.price}>
+						<div className={styles.details}>
 							<span>{brand}</span>
-							<span>{price}</span>
+							<span>₩{price}</span>
 						</div>
 					</div>
-					<div className={styles.ratio}>{similarity}</div>
+					<div className={styles.ratio}>{truncatedSimilarity}%</div>
 				</div>
 			</div>
 		</div>
