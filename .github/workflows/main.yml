@@ -22,7 +22,7 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '10.5'  # 최신 LTS 버전으로 변경
+          node-version: '14'  # 최신 LTS 버전으로 변경
 
       - name: Install dependencies
         run: npm install
