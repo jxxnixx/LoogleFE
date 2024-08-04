@@ -46,9 +46,7 @@ const SearchBar = ({ width, minWidth, height }: Props) => {
 
 			try {
 				const data = await getKeywordSearchResult(searchValue)
-
 				setsearchResult(data[0])
-
 				router.push(`/search`)
 			} catch (error) {
 				alert('Error fetching data! try again')
@@ -67,9 +65,7 @@ const SearchBar = ({ width, minWidth, height }: Props) => {
 			try {
 				const compressedImage = await compressImage(imageFile)
 				const data = await postImageAndGetSearchResult(compressedImage)
-
 				setsearchResult(data[0])
-
 				router.push(`/search`)
 			} catch (error) {
 				alert('Error uploading image! try again')
@@ -147,7 +143,6 @@ const SearchBar = ({ width, minWidth, height }: Props) => {
 
 				<input
 					type='text'
-					placeholder=''
 					className={styles.input}
 					value={searchValue}
 					onChange={handleInputChange}
