@@ -14,7 +14,7 @@ const page = () => {
 
 	return (
 		<section className={styles.search}>
-			<FillImg src='/image/gradientBackground.png' alt='background' className={styles.background} />
+			{/* <FillImg src='/image/gradientBackground.png' alt='background' className={styles.background} /> */}
 
 			<div className={styles.max}>
 				<header className={styles.header}>
@@ -22,7 +22,7 @@ const page = () => {
 						<span>Loogle</span>
 					</Link>
 					<div className={styles.searchBarArea}>
-						<SearchBar height='100%' minWidth='280px' />
+						<SearchBar width='90%' height='100%' minWidth='280px' />
 					</div>
 				</header>
 
@@ -32,7 +32,7 @@ const page = () => {
 						{/* {items.map((item, index) => (
 							<Item
 								key={index}
-								title={item}
+								title={'ㅌㅌㅌㅌㅌㅌㅌㅌㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅌ'}
 								brand={'brandddd'}
 								price={32800}
 								similarity={80.1129318723}

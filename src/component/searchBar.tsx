@@ -6,6 +6,7 @@ import { atom, useAtom } from 'jotai'
 import { useRouter } from 'next/navigation'
 
 import { getKeywordSearchResult, postImageAndGetSearchResult } from '@/api/api'
+import { clc } from '@/utilities/classComposer'
 
 import Icon from './base/icon'
 
@@ -16,11 +17,12 @@ export const searchResultAtom = atom<any>(null)
 export const loadingAtom = atom<boolean>(false)
 
 type Props = {
-	height: string
+	width: string
 	minWidth: string
+	height: string
 }
 
-const SearchBar = ({ height, minWidth }: Props) => {
+const SearchBar = ({ width, minWidth, height }: Props) => {
 	const [searchValue, setSearchValue] = useState('')
 	const [imageFile, setImageFile] = useState<File | null>(null)
 	const [showDropZone, setShowDropZone] = useState(false)
@@ -137,7 +139,7 @@ const SearchBar = ({ height, minWidth }: Props) => {
 	}, [showDropZone])
 
 	return (
-		<div className={styles.searchBar} style={{ height: height, minWidth: minWidth }}>
+		<div className={styles.searchBar} style={{ width: width, minWidth: minWidth, height: height }}>
 			<label className={styles.searchLabel}>
 				<div className={styles.icon}>
 					<Icon path='magnifier' alt='search' className={styles.magnifier} />
@@ -159,9 +161,9 @@ const SearchBar = ({ height, minWidth }: Props) => {
 
 			{showDropZone && (
 				<div ref={dropZoneRef} className={styles.dropZone} onDrop={handleDrop} onDragOver={handleDragOver}>
-					<span>Drag & drop your file here</span>
+					<span>{imageFile ? imageFile.name : 'Drag & drop your file here'}</span>
 					<button className={styles.fileInputButton} onClick={handleFileInputClick}>
-						Choose File
+						{imageFile ? 'Change File' : 'Choose File'}
 					</button>
 					<input
 						ref={fileInputRef}
@@ -171,7 +173,10 @@ const SearchBar = ({ height, minWidth }: Props) => {
 						className={styles.fileInput}
 					/>
 
-					<button className={styles.searchButton} onClick={handleImageSearch}>
+					<button
+						className={clc(styles.searchButton, !imageFile && styles.disabled)}
+						onClick={handleImageSearch}
+						disabled={!imageFile}>
 						Search
 					</button>
 				</div>
