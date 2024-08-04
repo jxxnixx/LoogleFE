@@ -44,9 +44,7 @@ const SearchBar = ({ height, minWidth }: Props) => {
 
 			try {
 				const data = await getKeywordSearchResult(searchValue)
-
 				setsearchResult(data[0])
-
 				router.push(`/search`)
 			} catch (error) {
 				console.error('Error fetching data:', error)
@@ -65,9 +63,7 @@ const SearchBar = ({ height, minWidth }: Props) => {
 			try {
 				const compressedImage = await compressImage(imageFile)
 				const data = await postImageAndGetSearchResult(compressedImage)
-
 				setsearchResult(data[0])
-
 				router.push(`/search`)
 			} catch (error) {
 				console.error('Error uploading image:', error)
@@ -145,7 +141,7 @@ const SearchBar = ({ height, minWidth }: Props) => {
 
 				<input
 					type='text'
-					// placeholder='Search'
+					placeholder='' // Placeholder 활성화
 					className={styles.input}
 					value={searchValue}
 					onChange={handleInputChange}
