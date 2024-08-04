@@ -5,6 +5,12 @@ on:
     branches:
       - main
 
+env:
+  AWS_REGION: ap-northeast-2
+  S3_BUCKET_NAME: loogle-github-actions-s3-bucket
+  CODE_DEPLOY_APPLICATION_NAME: loogle-front
+  CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: looglefront-codedeploy-deployment-group
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -16,23 +22,36 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '10.5'
+          node-version: '10.5'  # 최신 LTS 버전으로 변경
 
       - name: Install dependencies
         run: npm install
 
       - name: Build Next.js
         run: npm run build
+        
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
 
       - name: Zip application
         run: zip -r nextjs-app.zip ./
 
-      - name: Deploy to CodeDeploy
-        uses: aws-actions/aws-code-deploy@v1
-        with:
-          application-name: loogle-front
-          deployment-group: looglefront-codedeploy-deployment-group
-          zip-file: nextjs-app.zip
-          region: ap-northeast-2
-          access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      - name: Upload to AWS S3
+        run: |
+          aws deploy push \
+            --application-name ${{ env.CODE_DEPLOY_APPLICATION_NAME }} \
+            --ignore-hidden-files \
+            --s3-location s3://$S3_BUCKET_NAME/$GITHUB_SHA.zip \
+            --source .
+
+      - name: Deploy to AWS EC2 from S3
+        run: |
+          aws deploy create-deployment \
+            --application-name ${{ env.CODE_DEPLOY_APPLICATION_NAME }} \
+            --deployment-config-name CodeDeployDefault.AllAtOnce \
+            --deployment-group-name ${{ env.CODE_DEPLOY_DEPLOYMENT_GROUP_NAME }} \
+            --s3-location bucket=${{ env.S3_BUCKET_NAME }},key=nextjs-app-${{ github.sha }}.zip,bundleType=zip
