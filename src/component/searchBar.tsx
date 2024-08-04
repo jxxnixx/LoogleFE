@@ -15,7 +15,12 @@ export const inputValueAtom = atom<string>('')
 export const searchResultAtom = atom<any>(null)
 export const loadingAtom = atom<boolean>(false)
 
-const SearchBar = () => {
+type Props = {
+	height: string
+	minWidth: string
+}
+
+const SearchBar = ({ height, minWidth }: Props) => {
 	const [searchValue, setSearchValue] = useState('')
 	const [imageFile, setImageFile] = useState<File | null>(null)
 	const [showDropZone, setShowDropZone] = useState(false)
@@ -132,7 +137,7 @@ const SearchBar = () => {
 	}, [showDropZone])
 
 	return (
-		<div className={styles.searchBar}>
+		<div className={styles.searchBar} style={{ height: height, minWidth: minWidth }}>
 			<label className={styles.searchLabel}>
 				<div className={styles.icon}>
 					<Icon path='magnifier' alt='search' className={styles.magnifier} />

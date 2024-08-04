@@ -1,19 +1,50 @@
 .searchBar {
 	position: relative;
 
-	min-width: 380px;
 	max-width: 500px;
 
 	width: 50%;
 
 	min-height: 30px;
 	max-height: 40px;
-	height: 60%;
 }
 
 .searchLabel {
 	width: 100%;
 	height: 100%;
+
+	@include flex(row, xCenter, yCenter);
+
+	&:hover,
+	&:focus,
+	&:active {
+		.input {
+			border-color: rgba($primary-default, 0.8);
+		}
+
+		.magnifier {
+			color: rgba($primary-default, 0.8);
+		}
+	}
+}
+
+.input {
+	position: relative;
+
+	width: 100%;
+	height: 100%;
+
+	border: 2px solid $primary-default;
+	border-radius: 20px;
+
+	background-color: $white;
+	padding-inline: 40px;
+
+	color: $black;
+
+	box-shadow: 0 4px 10px rgba($black, 0.2);
+
+	@include dynamicFontSize(18, 16, 14, 400);
 }
 
 .icon {
@@ -41,25 +72,6 @@
 	height: 100%;
 
 	z-index: 2;
-}
-
-.input {
-	position: relative;
-
-	width: 100%;
-	height: 100%;
-
-	border: 2px solid $primary-default;
-	border-radius: 20px;
-
-	background-color: $white;
-	padding-inline: 40px;
-
-	color: $black;
-
-	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-
-	@include dynamicFontSize(18, 16, 14, 400);
 }
 
 .button {
@@ -100,9 +112,9 @@
 
 	@include flex(y, xCenter, bottom);
 
-	background: rgba(255, 255, 255, 0.5);
+	background: rgba($white, 0.5);
 	border-radius: 20px;
-	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+	box-shadow: 0 4px 10px rgba($black, 0.2);
 
 	backdrop-filter: blur(10px);
 	-webkit-backdrop-filter: blur(10px);
