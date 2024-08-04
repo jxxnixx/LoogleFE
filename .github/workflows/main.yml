@@ -10,6 +10,7 @@ env:
   S3_BUCKET_NAME: loogle-github-actions-s3-bucket
   CODE_DEPLOY_APPLICATION_NAME: loogle-front
   CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: looglefront-codedeploy-deployment-group
+  NEXT_PUBLIC_LOOGLE_BASE: ${{ secrets.NEXT_PUBLIC_LOOGLE_BASE }}
 
 jobs:
   deploy:
