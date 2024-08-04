@@ -51,7 +51,7 @@ const SearchBar = ({ width, minWidth, height }: Props) => {
 
 				router.push(`/search`)
 			} catch (error) {
-				console.error('Error fetching data:', error)
+				alert('Error fetching data! try again')
 			}
 		}
 	}
@@ -72,7 +72,7 @@ const SearchBar = ({ width, minWidth, height }: Props) => {
 
 				router.push(`/search`)
 			} catch (error) {
-				console.error('Error uploading image:', error)
+				alert('Error uploading image! try again')
 			}
 		}
 	}
@@ -87,7 +87,7 @@ const SearchBar = ({ width, minWidth, height }: Props) => {
 			const compressedFile = await imageCompression(imageFile, options)
 			return compressedFile
 		} catch (error) {
-			console.error('Error compressing image:', error)
+			alert('Error compressing image! try again')
 			throw error
 		}
 	}
@@ -97,7 +97,6 @@ const SearchBar = ({ width, minWidth, height }: Props) => {
 		event.stopPropagation()
 		if (event.dataTransfer.files && event.dataTransfer.files[0]) {
 			setImageFile(event.dataTransfer.files[0])
-			setShowDropZone(false)
 		}
 	}
 
@@ -121,6 +120,7 @@ const SearchBar = ({ width, minWidth, height }: Props) => {
 	}
 
 	const handleFileInputClick = () => {
+		setImageFile(null)
 		if (fileInputRef.current) {
 			fileInputRef.current.click()
 		}
@@ -147,7 +147,7 @@ const SearchBar = ({ width, minWidth, height }: Props) => {
 
 				<input
 					type='text'
-					// placeholder='Search'
+					placeholder=''
 					className={styles.input}
 					value={searchValue}
 					onChange={handleInputChange}
