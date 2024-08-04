@@ -25,6 +25,7 @@ const SearchBar = () => {
 	const router = useRouter()
 
 	const dropZoneRef = useRef<HTMLDivElement>(null)
+	const fileInputRef = useRef<HTMLInputElement>(null)
 
 	const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const value = event.target.value
@@ -99,12 +100,22 @@ const SearchBar = () => {
 	}
 
 	const toggleDropZone = () => {
+		if (!showDropZone) {
+			setSearchValue('')
+			searchValueSet('')
+		}
 		setShowDropZone((prev) => !prev)
 	}
 
 	const handleClickOutside = (event: MouseEvent) => {
 		if (dropZoneRef.current && !dropZoneRef.current.contains(event.target as Node)) {
 			setShowDropZone(false)
+		}
+	}
+
+	const handleFileInputClick = () => {
+		if (fileInputRef.current) {
+			fileInputRef.current.click()
 		}
 	}
 
@@ -129,7 +140,7 @@ const SearchBar = () => {
 
 				<input
 					type='text'
-					placeholder='Search'
+					// placeholder='Search'
 					className={styles.input}
 					value={searchValue}
 					onChange={handleInputChange}
@@ -144,7 +155,16 @@ const SearchBar = () => {
 			{showDropZone && (
 				<div ref={dropZoneRef} className={styles.dropZone} onDrop={handleDrop} onDragOver={handleDragOver}>
 					<span>Drag & drop your file here</span>
-					<input type='file' accept='image/*' onChange={handleImageChange} />
+					<button className={styles.fileInputButton} onClick={handleFileInputClick}>
+						Choose File
+					</button>
+					<input
+						ref={fileInputRef}
+						type='file'
+						accept='image/*'
+						onChange={handleImageChange}
+						className={styles.fileInput}
+					/>
 
 					<button className={styles.searchButton} onClick={handleImageSearch}>
 						Search

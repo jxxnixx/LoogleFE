@@ -112,27 +112,34 @@
 	span {
 		position: absolute;
 
-		top: 10%;
+		top: 15%;
 
 		color: $black;
 
 		@include dynamicFontSize(16, 14, 12, 300);
 	}
 
-	input {
+	.fileInputButton {
 		position: absolute;
 
-		min-width: 120px;
-		max-width: 200px;
-		width: 50%;
-
-		top: 40%;
-
-		@include flex(row, xCenter, yCenter);
+		width: 40%;
+		top: 35%;
 
 		color: $black;
+		background-color: $primary-default;
 
-		@include dynamicFontSize(16, 14, 14, 400);
+		opacity: 0.8;
+
+		@include dynamicFontSize(16, 14, 14, 300);
+
+		padding: 10px;
+		border-radius: 5px;
+
+		cursor: pointer;
+	}
+
+	.fileInput {
+		display: none;
 	}
 }
 
