@@ -1,0 +1,38 @@
+name: Deploy Next.js to EC2 with CodeDeploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '10.5'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Next.js
+        run: npm run build
+
+      - name: Zip application
+        run: zip -r nextjs-app.zip ./
+
+      - name: Deploy to CodeDeploy
+        uses: aws-actions/aws-code-deploy@v1
+        with:
+          application-name: loogle-front
+          deployment-group: looglefront-codedeploy-deployment-group
+          zip-file: nextjs-app.zip
+          region: ap-northeast-2
+          access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
