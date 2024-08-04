@@ -1,5 +1,7 @@
 /** @type {import('next').NextConfig} */
 
+const withImages = require('next-images');
+
 const nextConfig = {
 	reactStrictMode: true,
 	transpilePackages: ['three'],
@@ -13,7 +15,7 @@ const nextConfig = {
 				source: '/:path*',
 				destination: process.env.NEXT_PUBLIC_LOOGLE_BASE + '/:path*',
 			},
-		]
+		];
 	},
 
 	images: {
@@ -27,14 +29,7 @@ const nextConfig = {
 			},
 		],
 	},
-}
-const withImages = require('next-images')
-module.exports = withImages()
-
-module.exports = nextConfig
-
-
-      },
-    ];
-  },
 };
+
+// nextConfig를 withImages로 래핑합니다.
+module.exports = withImages(nextConfig);
