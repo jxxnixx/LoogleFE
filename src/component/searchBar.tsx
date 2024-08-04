@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import imageCompression from 'browser-image-compression'
 import { atom, useAtom } from 'jotai'
 import { useRouter } from 'next/navigation'
@@ -15,13 +15,22 @@ export const inputValueAtom = atom<string>('')
 export const searchResultAtom = atom<any>(null)
 export const loadingAtom = atom<boolean>(false)
 
-const SearchBar = () => {
+type Props = {
+	height: string
+	minWidth: string
+}
+
+const SearchBar = ({ height, minWidth }: Props) => {
 	const [searchValue, setSearchValue] = useState('')
 	const [imageFile, setImageFile] = useState<File | null>(null)
+	const [showDropZone, setShowDropZone] = useState(false)
 
 	const [_, searchValueSet] = useAtom(inputValueAtom)
 	const [searchResult, setsearchResult] = useAtom(searchResultAtom)
 	const router = useRouter()
+
+	const dropZoneRef = useRef<HTMLDivElement>(null)
+	const fileInputRef = useRef<HTMLInputElement>(null)
 
 	const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const value = event.target.value
@@ -81,36 +90,94 @@ const SearchBar = () => {
 		}
 	}
 
+	const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
+		event.preventDefault()
+		event.stopPropagation()
+		if (event.dataTransfer.files && event.dataTransfer.files[0]) {
+			setImageFile(event.dataTransfer.files[0])
+			setShowDropZone(false)
+		}
+	}
+
+	const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
+		event.preventDefault()
+		event.stopPropagation()
+	}
+
+	const toggleDropZone = () => {
+		if (!showDropZone) {
+			setSearchValue('')
+			searchValueSet('')
+		}
+		setShowDropZone((prev) => !prev)
+	}
+
+	const handleClickOutside = (event: MouseEvent) => {
+		if (dropZoneRef.current && !dropZoneRef.current.contains(event.target as Node)) {
+			setShowDropZone(false)
+		}
+	}
+
+	const handleFileInputClick = () => {
+		if (fileInputRef.current) {
+			fileInputRef.current.click()
+		}
+	}
+
+	useEffect(() => {
+		if (showDropZone) {
+			document.addEventListener('click', handleClickOutside)
+		} else {
+			document.removeEventListener('click', handleClickOutside)
+		}
+
+		return () => {
+			document.removeEventListener('click', handleClickOutside)
+		}
+	}, [showDropZone])
+
 	return (
-		<label className={styles.searchBar}>
-			<div className={styles.icon}>
-				<Icon path='magnifier' alt='search' className={styles.magnifier} />
-			</div>
+		<div className={styles.searchBar} style={{ height: height, minWidth: minWidth }}>
+			<label className={styles.searchLabel}>
+				<div className={styles.icon}>
+					<Icon path='magnifier' alt='search' className={styles.magnifier} />
+				</div>
 
-			<input
-				type='text'
-				placeholder='Search'
-				className={styles.input}
-				value={searchValue}
-				onChange={handleInputChange}
-				onKeyDown={handleKeyDown}
-			/>
+				<input
+					type='text'
+					// placeholder='Search'
+					className={styles.input}
+					value={searchValue}
+					onChange={handleInputChange}
+					onKeyDown={handleKeyDown}
+				/>
 
-			<input type='file' accept='image/*' id='imageUpload' onChange={handleImageChange} />
-			<label htmlFor='imageUpload'>
-				<button className={styles.button} onClick={handleImageSearch}>
+				<button className={styles.button} onClick={toggleDropZone}>
 					<Icon path='camera' alt='camera' className={styles.camera} />
 				</button>
 			</label>
-		</label>
+
+			{showDropZone && (
+				<div ref={dropZoneRef} className={styles.dropZone} onDrop={handleDrop} onDragOver={handleDragOver}>
+					<span>Drag & drop your file here</span>
+					<button className={styles.fileInputButton} onClick={handleFileInputClick}>
+						Choose File
+					</button>
+					<input
+						ref={fileInputRef}
+						type='file'
+						accept='image/*'
+						onChange={handleImageChange}
+						className={styles.fileInput}
+					/>
+
+					<button className={styles.searchButton} onClick={handleImageSearch}>
+						Search
+					</button>
+				</div>
+			)}
+		</div>
 	)
 }
 
 export default SearchBar
-
-import axios from 'axios'
-
-export const api = axios.create({
-	baseURL: '/',
-	withCredentials: true,
-})

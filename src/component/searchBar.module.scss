@@ -1,35 +1,31 @@
 .searchBar {
 	position: relative;
 
-	min-width: 380px;
 	max-width: 500px;
 
 	width: 50%;
-	height: 40px;
 
+	min-height: 30px;
+	max-height: 40px;
 }
 
-.icon {
-	position: absolute;
+.searchLabel {
+	width: 100%;
+	height: 100%;
 
 	@include flex(row, xCenter, yCenter);
 
-	top: 0;
-	left: 0;
+	&:hover,
+	&:focus,
+	&:active {
+		.input {
+			border-color: rgba($primary-default, 0.8);
+		}
 
-	margin-left: 11px;
-
-	width: 24px;
-	height: 100%;
-}
-
-.magnifier {
-	color: $primary-default;
-
-	width: 24px;
-	height: 24px;
-
-	z-index: 2;
+		.magnifier {
+			color: rgba($primary-default, 0.8);
+		}
+	}
 }
 
 .input {
@@ -44,9 +40,38 @@
 	background-color: $white;
 	padding-inline: 40px;
 
-	color: black;
+	color: $black;
 
-	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+	box-shadow: 0 4px 10px rgba($black, 0.2);
+
+	@include dynamicFontSize(18, 16, 14, 400);
+}
+
+.icon {
+	position: absolute;
+
+	@include flex(row, xCenter, yCenter);
+
+	top: 0;
+	left: 0;
+
+	margin-left: 11px;
+
+	width: 10%;
+	height: 100%;
+
+	max-width: 24px;
+}
+
+.magnifier {
+	color: $primary-default;
+
+	width: 100%;
+
+	max-height: 24px;
+	height: 100%;
+
+	z-index: 2;
 }
 
 .button {
@@ -69,8 +94,78 @@
 .camera {
 	color: $primary-default;
 
-	width: 24px;
+	max-width: 24px;
+
+	width: 100%;
 	height: 24px;
 
 	z-index: 2;
+}
+
+.dropZone {
+	position: relative;
+
+	width: 100%;
+	height: 20vh;
+
+	border-radius: 20px;
+
+	@include flex(y, xCenter, bottom);
+
+	background: rgba($white, 0.5);
+	border-radius: 20px;
+	box-shadow: 0 4px 10px rgba($black, 0.2);
+
+	backdrop-filter: blur(10px);
+	-webkit-backdrop-filter: blur(10px);
+
+	transition: all 0.3s ease-in-out;
+
+	span {
+		position: absolute;
+
+		top: 15%;
+
+		color: $black;
+
+		@include dynamicFontSize(16, 14, 12, 300);
+	}
+
+	.fileInputButton {
+		position: absolute;
+
+		width: 40%;
+		top: 35%;
+
+		color: $black;
+		background-color: $primary-default;
+
+		opacity: 0.8;
+
+		@include dynamicFontSize(16, 14, 14, 300);
+
+		padding: 10px;
+		border-radius: 5px;
+
+		cursor: pointer;
+	}
+
+	.fileInput {
+		display: none;
+	}
+}
+
+.searchButton {
+	color: $black;
+
+	width: 100%;
+	height: 20%;
+
+	background-color: $primary-default;
+
+	opacity: 0.8;
+
+	border-radius: 0px 0px 20px 20px;
+
+	@include dynamicFontSize(16, 14, 14, 300);
 }
