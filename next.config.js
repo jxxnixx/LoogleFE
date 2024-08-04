@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 
-const withImages = require('next-images');
+const withImages = require('next-images')
 
 const nextConfig = {
 	output: 'standalone',
@@ -8,6 +8,14 @@ const nextConfig = {
 	transpilePackages: ['three'],
 	sassOptions: {
 		additionalData: `@use '/src/scss/abstracts/index' as *;`,
+	},
+	async rewrites() {
+		return [
+			{
+				source: '/:path*',
+				destination: process.env.NEXT_PUBLIC_LOOGLE_BASE + '/:path*',
+			},
+		]
 	},
 
 	images: {
@@ -21,6 +29,6 @@ const nextConfig = {
 			},
 		],
 	},
+}
 
-// nextConfig를 withImages로 래핑합니다.
-module.exports = withImages(nextConfig);
+module.exports = withImages(nextConfig)
