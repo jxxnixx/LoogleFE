@@ -15,7 +15,7 @@ type Props = {
 }
 
 const Item = ({ title, brand, price, similarity, imgUrls, href }: Props) => {
-	const truncatedSimilarity = Math.floor(similarity * 100) / 100
+	const truncatedSimilarity = Math.floor(similarity * 10000) / 100
 
 	return (
 		<div className={styles.space}>
@@ -23,14 +23,17 @@ const Item = ({ title, brand, price, similarity, imgUrls, href }: Props) => {
 				<Link href={href} className={styles.link}>
 					<FillImg src={imgUrls} alt='img' className={styles.img} />
 				</Link>
+
+				<div className={styles.title}>
+					<span>{title}</span>
+				</div>
+
 				<div className={styles.info}>
-					<div className={styles.desc}>
-						<div className={styles.title}>{title}</div>
-						<div className={styles.details}>
-							<span>{brand}</span>
-							<span>₩{price}</span>
-						</div>
+					<div className={styles.details}>
+						<span>{brand}</span>
+						<span>₩{price}</span>
 					</div>
+
 					<div className={styles.ratio}>{truncatedSimilarity}%</div>
 				</div>
 			</div>

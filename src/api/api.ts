@@ -14,6 +14,7 @@ export const getKeywordSearchResult = async (keywordName: string) => {
 		return response.data
 	} catch (error) {
 		console.error('Error fetching data:', error)
+		alert('Error fetching data! try again')
 
 		throw error
 	}
@@ -33,6 +34,7 @@ export const postImageAndGetSearchResult = async (imageFile: File) => {
 		return response.data
 	} catch (error) {
 		console.error('Error uploading image:', error)
+		alert('Error uploading image! try again')
 
 		throw error
 	}

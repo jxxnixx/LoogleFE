@@ -3,12 +3,12 @@
 const withImages = require('next-images');
 
 const nextConfig = {
+	output: 'standalone',
 	reactStrictMode: true,
 	transpilePackages: ['three'],
 	sassOptions: {
 		additionalData: `@use '/src/scss/abstracts/index' as *;`,
 	},
-
 
 	images: {
 		unoptimized: true,
@@ -21,7 +21,6 @@ const nextConfig = {
 			},
 		],
 	},
-};
 
 // nextConfig를 withImages로 래핑합니다.
 module.exports = withImages(nextConfig);

@@ -6,6 +6,7 @@ import { atom, useAtom } from 'jotai'
 import { useRouter } from 'next/navigation'
 
 import { getKeywordSearchResult, postImageAndGetSearchResult } from '@/api/api'
+import { clc } from '@/utilities/classComposer'
 
 import Icon from './base/icon'
 
@@ -16,11 +17,12 @@ export const searchResultAtom = atom<any>(null)
 export const loadingAtom = atom<boolean>(false)
 
 type Props = {
-	height: string
+	width: string
 	minWidth: string
+	height: string
 }
 
-const SearchBar = ({ height, minWidth }: Props) => {
+const SearchBar = ({ width, minWidth, height }: Props) => {
 	const [searchValue, setSearchValue] = useState('')
 	const [imageFile, setImageFile] = useState<File | null>(null)
 	const [showDropZone, setShowDropZone] = useState(false)
@@ -47,7 +49,7 @@ const SearchBar = ({ height, minWidth }: Props) => {
 				setsearchResult(data[0])
 				router.push(`/search`)
 			} catch (error) {
-				console.error('Error fetching data:', error)
+				alert('Error fetching data! try again')
 			}
 		}
 	}
@@ -66,7 +68,7 @@ const SearchBar = ({ height, minWidth }: Props) => {
 				setsearchResult(data[0])
 				router.push(`/search`)
 			} catch (error) {
-				console.error('Error uploading image:', error)
+				alert('Error uploading image! try again')
 			}
 		}
 	}
@@ -81,7 +83,7 @@ const SearchBar = ({ height, minWidth }: Props) => {
 			const compressedFile = await imageCompression(imageFile, options)
 			return compressedFile
 		} catch (error) {
-			console.error('Error compressing image:', error)
+			alert('Error compressing image! try again')
 			throw error
 		}
 	}
@@ -91,7 +93,6 @@ const SearchBar = ({ height, minWidth }: Props) => {
 		event.stopPropagation()
 		if (event.dataTransfer.files && event.dataTransfer.files[0]) {
 			setImageFile(event.dataTransfer.files[0])
-			setShowDropZone(false)
 		}
 	}
 
@@ -115,6 +116,7 @@ const SearchBar = ({ height, minWidth }: Props) => {
 	}
 
 	const handleFileInputClick = () => {
+		setImageFile(null)
 		if (fileInputRef.current) {
 			fileInputRef.current.click()
 		}
@@ -133,7 +135,7 @@ const SearchBar = ({ height, minWidth }: Props) => {
 	}, [showDropZone])
 
 	return (
-		<div className={styles.searchBar} style={{ height: height, minWidth: minWidth }}>
+		<div className={styles.searchBar} style={{ width: width, minWidth: minWidth, height: height }}>
 			<label className={styles.searchLabel}>
 				<div className={styles.icon}>
 					<Icon path='magnifier' alt='search' className={styles.magnifier} />
@@ -141,7 +143,6 @@ const SearchBar = ({ height, minWidth }: Props) => {
 
 				<input
 					type='text'
-					placeholder='' // Placeholder 활성화
 					className={styles.input}
 					value={searchValue}
 					onChange={handleInputChange}
@@ -155,9 +156,9 @@ const SearchBar = ({ height, minWidth }: Props) => {
 
 			{showDropZone && (
 				<div ref={dropZoneRef} className={styles.dropZone} onDrop={handleDrop} onDragOver={handleDragOver}>
-					<span>Drag & drop your file here</span>
+					<span>{imageFile ? imageFile.name : 'Drag & drop your file here'}</span>
 					<button className={styles.fileInputButton} onClick={handleFileInputClick}>
-						Choose File
+						{imageFile ? 'Change File' : 'Choose File'}
 					</button>
 					<input
 						ref={fileInputRef}
@@ -167,7 +168,10 @@ const SearchBar = ({ height, minWidth }: Props) => {
 						className={styles.fileInput}
 					/>
 
-					<button className={styles.searchButton} onClick={handleImageSearch}>
+					<button
+						className={clc(styles.searchButton, !imageFile && styles.disabled)}
+						onClick={handleImageSearch}
+						disabled={!imageFile}>
 						Search
 					</button>
 				</div>

@@ -2,7 +2,7 @@
 	width: 100vw;
 	height: 100vh;
 
-	// background-image: '/img/gradientBackground.png';
+	background: linear-gradient(to bottom, $sky-default 3%, $sky-light 55%, $sky-dark 90%);
 }
 
 .searchBarArea {
@@ -13,7 +13,7 @@
 	align-items: center;
 
 	top: 51%;
-	
+
 	width: 100vw;
 	height: 10vh;
 
