@@ -75,7 +75,11 @@ const GlassText = () => {
 	return (
 		<div style={{ width: '100vw', height: '100vh', backgroundColor: '#fff' }}>
 			<Canvas camera={{ position: [0, 0, 20], fov: 50 }}>
-				<Environment files='/image/sky.hdr' background backgroundBlurriness={0.2} backgroundIntensity={2}></Environment>
+				<Environment
+					files='/image/sky.hdr'
+					background
+					backgroundBlurriness={0.1}
+					backgroundIntensity={2.5}></Environment>
 
 				<Suspense fallback={null}>
 					{text.split('').map((char, index) => (

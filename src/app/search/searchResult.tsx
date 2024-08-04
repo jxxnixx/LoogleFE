@@ -28,17 +28,21 @@ const SearchResult = () => {
 
 	return (
 		<div className={styles.wrap}>
-			{productIds.map((productId: any, index: number) => (
-				<Item
-					key={index}
-					title={products[index].title}
-					brand={products[index].brand}
-					price={products[index].price}
-					similarity={similarities[index]}
-					imgUrls={products[index].imgUrls[0]}
-					href={products[index].href}
-				/>
-			))}
+			{productIds.map((productId: any, index: number) => {
+				const brand = products[index].brandId === 1 ? 'shopCider' : 'unknown'
+
+				return (
+					<Item
+						key={index}
+						title={products[index].title}
+						brand={brand}
+						price={products[index].price}
+						similarity={similarities[index]}
+						imgUrls={products[index].imgUrls[0]}
+						href={products[index].href}
+					/>
+				)
+			})}
 		</div>
 	)
 }
