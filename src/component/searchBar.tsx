@@ -29,6 +29,7 @@ const SearchBar = ({ width, minWidth, height }: Props) => {
 
 	const [_, searchValueSet] = useAtom(inputValueAtom)
 	const [searchResult, setsearchResult] = useAtom(searchResultAtom)
+	const [loading, setLoading] = useAtom(loadingAtom)
 	const router = useRouter()
 
 	const dropZoneRef = useRef<HTMLDivElement>(null)
@@ -41,15 +42,17 @@ const SearchBar = ({ width, minWidth, height }: Props) => {
 	}
 
 	const handleKeyDown = async (event: React.KeyboardEvent<HTMLInputElement>) => {
-		if (event.key === 'Enter') {
+		if (event.key === 'Enter' && !loading) {
 			event.preventDefault()
-
+			setLoading(true)
 			try {
 				const data = await getKeywordSearchResult(searchValue)
 				setsearchResult(data[0])
 				router.push(`/search`)
 			} catch (error) {
 				alert('Error fetching data! try again')
+			} finally {
+				setLoading(false)
 			}
 		}
 	}
@@ -61,7 +64,8 @@ const SearchBar = ({ width, minWidth, height }: Props) => {
 	}
 
 	const handleImageSearch = async () => {
-		if (imageFile) {
+		if (imageFile && !loading) {
+			setLoading(true)
 			try {
 				const compressedImage = await compressImage(imageFile)
 				const data = await postImageAndGetSearchResult(compressedImage)
@@ -69,6 +73,8 @@ const SearchBar = ({ width, minWidth, height }: Props) => {
 				router.push(`/search`)
 			} catch (error) {
 				alert('Error uploading image! try again')
+			} finally {
+				setLoading(false)
 			}
 		}
 	}
@@ -147,6 +153,7 @@ const SearchBar = ({ width, minWidth, height }: Props) => {
 					value={searchValue}
 					onChange={handleInputChange}
 					onKeyDown={handleKeyDown}
+					disabled={loading}
 				/>
 
 				<button className={styles.button} onClick={toggleDropZone}>
@@ -169,10 +176,10 @@ const SearchBar = ({ width, minWidth, height }: Props) => {
 					/>
 
 					<button
-						className={clc(styles.searchButton, !imageFile && styles.disabled)}
+						className={clc(styles.searchButton, (!imageFile || loading) && styles.disabled)}
 						onClick={handleImageSearch}
-						disabled={!imageFile}>
-						Search
+						disabled={!imageFile || loading}>
+						{loading ? <span className={styles.loadingIcon}></span> : 'Search'}
 					</button>
 				</div>
 			)}
