@@ -4,6 +4,8 @@ import FillImg from '@/component/base/fillImg'
 import GlassText from '@/component/glassText'
 import SearchBar from '@/component/searchBar'
 
+import DeployButton from './DeployButton'
+
 import styles from './landing.module.scss'
 
 export default function Home() {
@@ -14,6 +16,7 @@ export default function Home() {
 			<div className={styles.searchBarArea}>
 				<SearchBar width='50%' height='60%' minWidth='380px' />
 			</div>
+			<DeployButton />
 			<GlassText />
 		</main>
 	)
