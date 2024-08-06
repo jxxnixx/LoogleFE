@@ -8,6 +8,6 @@ export const store = createStore()
 type Props = {
 	children: React.ReactNode
 }
-export const Providers = ({ children }: Props) => {
+export const JotaiProviders = ({ children }: Props) => {
 	return <Provider store={store}>{children}</Provider>
 }

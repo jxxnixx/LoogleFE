@@ -2,6 +2,13 @@
 
 const withImages = require('next-images')
 
+const createNextIntlPlugin = require('next-intl/plugin')
+
+const withNextIntl = createNextIntlPlugin({
+	locales: ['en', 'ko'],
+	defaultLocale: 'en',
+})
+
 const nextConfig = {
 	output: 'standalone',
 	reactStrictMode: true,
@@ -31,4 +38,4 @@ const nextConfig = {
 	},
 }
 
-module.exports = withImages(nextConfig)
+module.exports = withNextIntl(withImages(nextConfig))
