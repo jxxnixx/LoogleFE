@@ -3,12 +3,14 @@
 import React, { useEffect, useRef, useState } from 'react'
 import imageCompression from 'browser-image-compression'
 import { atom, useAtom } from 'jotai'
+import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 
 import { getKeywordSearchResult, postImageAndGetSearchResult } from '@/api/api'
 import { clc } from '@/utilities/classComposer'
 
+import FillImg from './base/fillImg'
 import Icon from './base/icon'
 
 import styles from './searchBar.module.scss'
@@ -24,11 +26,11 @@ type Props = {
 }
 
 const SearchBar = ({ width, minWidth, height }: Props) => {
-	const [searchValue, setSearchValue] = useState('')
 	const [imageFile, setImageFile] = useState<File | null>(null)
+	const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null)
 	const [showDropZone, setShowDropZone] = useState(false)
 
-	const [_, searchValueSet] = useAtom(inputValueAtom)
+	const [searchValue, searchValueSet] = useAtom(inputValueAtom)
 	const [searchResult, setsearchResult] = useAtom(searchResultAtom)
 	const [loading, setLoading] = useAtom(loadingAtom)
 	const router = useRouter()
@@ -41,7 +43,6 @@ const SearchBar = ({ width, minWidth, height }: Props) => {
 
 	const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const value = event.target.value
-		setSearchValue(value)
 		searchValueSet(value)
 	}
 
@@ -49,6 +50,7 @@ const SearchBar = ({ width, minWidth, height }: Props) => {
 		if (event.key === 'Enter' && !loading) {
 			event.preventDefault()
 			setLoading(true)
+
 			try {
 				const data = await getKeywordSearchResult(searchValue)
 				setsearchResult(data[0])
@@ -61,19 +63,44 @@ const SearchBar = ({ width, minWidth, height }: Props) => {
 		}
 	}
 
+	const handleImageFile = (file: File) => {
+		if (file.type.startsWith('image/')) {
+			setImageFile(file)
+			const previewUrl = URL.createObjectURL(file)
+			setImagePreviewUrl(previewUrl)
+			setShowDropZone(true) // 이미지를 선택하거나 드롭하면 Dropzone이 자동으로 열림
+		} else {
+			alert(a('invalidFileType'))
+			setImageFile(null)
+			setImagePreviewUrl(null)
+		}
+	}
+
 	const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		if (event.target.files && event.target.files[0]) {
-			setImageFile(event.target.files[0])
+			handleImageFile(event.target.files[0])
+		}
+	}
+
+	const handleInputDrop = (event: React.DragEvent<HTMLInputElement>) => {
+		event.preventDefault()
+		event.stopPropagation()
+
+		if (event.dataTransfer.files && event.dataTransfer.files[0]) {
+			handleImageFile(event.dataTransfer.files[0])
 		}
 	}
 
 	const handleImageSearch = async () => {
 		if (imageFile && !loading) {
 			setLoading(true)
+
 			try {
 				const compressedImage = await compressImage(imageFile)
 				const data = await postImageAndGetSearchResult(compressedImage)
+
 				setsearchResult(data[0])
+
 				router.push(`/search`)
 			} catch (error) {
 				alert(a('uploadImage'))
@@ -101,8 +128,10 @@ const SearchBar = ({ width, minWidth, height }: Props) => {
 	const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
 		event.preventDefault()
 		event.stopPropagation()
+		searchValueSet('')
+
 		if (event.dataTransfer.files && event.dataTransfer.files[0]) {
-			setImageFile(event.dataTransfer.files[0])
+			handleImageFile(event.dataTransfer.files[0])
 		}
 	}
 
@@ -112,10 +141,6 @@ const SearchBar = ({ width, minWidth, height }: Props) => {
 	}
 
 	const toggleDropZone = () => {
-		if (!showDropZone) {
-			setSearchValue('')
-			searchValueSet('')
-		}
 		setShowDropZone((prev) => !prev)
 	}
 
@@ -127,8 +152,23 @@ const SearchBar = ({ width, minWidth, height }: Props) => {
 
 	const handleFileInputClick = () => {
 		setImageFile(null)
+		setImagePreviewUrl(null)
+
 		if (fileInputRef.current) {
-			fileInputRef.current.click()
+			const fileInput = fileInputRef.current
+
+			const onFileSelected = (event: Event) => {
+				const target = event.target as HTMLInputElement
+				if (target.files && target.files[0]) {
+					searchValueSet('')
+				}
+
+				fileInput.removeEventListener('change', onFileSelected)
+			}
+
+			fileInput.addEventListener('change', onFileSelected)
+
+			fileInput.click()
 		}
 	}
 
@@ -158,7 +198,11 @@ const SearchBar = ({ width, minWidth, height }: Props) => {
 					onChange={handleInputChange}
 					onKeyDown={handleKeyDown}
 					disabled={loading}
+					onDrop={handleInputDrop}
+					onDragOver={handleDragOver}
 				/>
+
+				{loading && searchValue && <span className={styles.loadingIconForText}></span>}
 
 				<button className={styles.button} onClick={toggleDropZone}>
 					<Icon path='camera' alt='camera' className={styles.camera} />
@@ -167,7 +211,13 @@ const SearchBar = ({ width, minWidth, height }: Props) => {
 
 			{showDropZone && (
 				<div ref={dropZoneRef} className={styles.dropZone} onDrop={handleDrop} onDragOver={handleDragOver}>
-					<span>{imageFile ? imageFile.name : 'Drag & drop your file here'}</span>
+					<div className={styles.imagePreviewWrap}>
+						{imagePreviewUrl ? (
+							<FillImg src={imagePreviewUrl} alt='Preview' />
+						) : (
+							<span className={styles.dropText}>{imageFile ? imageFile.name : 'Drag & drop your file here'}</span>
+						)}
+					</div>
 					<button className={styles.fileInputButton} onClick={handleFileInputClick}>
 						{imageFile ? t('change') : t('choose')}
 					</button>
@@ -183,7 +233,7 @@ const SearchBar = ({ width, minWidth, height }: Props) => {
 						className={clc(styles.searchButton, (!imageFile || loading) && styles.disabled)}
 						onClick={handleImageSearch}
 						disabled={!imageFile || loading}>
-						{loading ? <span className={styles.loadingIcon}></span> : t('search')}
+						{loading && imageFile ? <span className={styles.loadingIconForImage}></span> : t('search')}
 					</button>
 				</div>
 			)}

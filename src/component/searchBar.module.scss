@@ -110,6 +110,7 @@
 	position: relative;
 
 	width: 100%;
+	min-height: 200px;
 	height: 20vh;
 
 	border-radius: 20px;
@@ -132,28 +133,13 @@
 	-ms-user-select: none;
 	user-select: none;
 
-	span {
-		position: absolute;
-
-		width: fit-content;
-		max-width: 80%;
-
-		top: 15%;
-
-		color: $black;
-
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
-
-		@include dynamicFontSize(16, 14, 12, 300);
-	}
-
 	.fileInputButton {
 		position: absolute;
 
 		width: 40%;
-		top: 35%;
+		height: 20%;
+
+		top: 50%;
 
 		color: $black;
 		background-color: $primary-default;
@@ -164,6 +150,7 @@
 
 		padding: 10px;
 		border-radius: 20px;
+		box-shadow: 0 4px 10px rgba($black, 0.2);
 
 		cursor: pointer;
 
@@ -176,6 +163,37 @@
 
 	.fileInput {
 		display: none;
+	}
+
+	.dropText {
+		width: fit-content;
+
+		color: $black;
+
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+
+		@include dynamicFontSize(16, 14, 12, 300);
+	}
+
+	.imagePreviewWrap {
+		position: absolute;
+
+		@include flex(y, xCenter, yCenter);
+
+		top: 5%;
+
+		width: fit-content;
+		min-width: 80px;
+		max-width: 100px;
+
+		height: 80px;
+	}
+
+	.imagePreview {
+		width: 100%;
+		height: 100%;
 	}
 }
 
@@ -218,10 +236,25 @@
 	}
 }
 
-.loadingIcon {
+.loadingIconForText {
 	position: absolute;
 
-	bottom: 25%;
+	right: 50px;
+
+	border: 2px solid rgba($black, 0.2);
+	border-top: 2px solid rgba($black, 0.4);
+	border-radius: 50%;
+
+	width: 20px;
+	height: 20px;
+
+	animation: spin 1s linear infinite;
+}
+
+.loadingIconForImage {
+	position: absolute;
+
+	top: -10px;
 
 	border: 2px solid rgba($black, 0.2);
 	border-top: 2px solid rgba($black, 0.4);
