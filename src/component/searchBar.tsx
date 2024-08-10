@@ -23,9 +23,10 @@ type Props = {
 	width: string
 	minWidth: string
 	height: string
+	landing?: boolean
 }
 
-const SearchBar = ({ width, minWidth, height }: Props) => {
+const SearchBar = ({ width, minWidth, height, landing }: Props) => {
 	const [imageFile, setImageFile] = useState<File | null>(null)
 	const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null)
 	const [showDropZone, setShowDropZone] = useState(false)
@@ -183,6 +184,12 @@ const SearchBar = ({ width, minWidth, height }: Props) => {
 			document.removeEventListener('click', handleClickOutside)
 		}
 	}, [showDropZone])
+
+	useEffect(() => {
+		if (landing) {
+			searchValueSet('')
+		}
+	}, [landing])
 
 	return (
 		<div className={styles.searchBar} style={{ width: width, minWidth: minWidth, height: height }}>

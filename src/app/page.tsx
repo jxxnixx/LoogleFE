@@ -13,7 +13,7 @@ export default function Home() {
 			{/* <FillImg src='/image/gradientBackground.png' alt='background' className={styles.background} /> */}
 			{/* <FillImg src='/image/file.png' alt='background' className={styles.background} /> */}
 			<div className={styles.searchBarArea}>
-				<SearchBar width='50%' height='60%' minWidth='380px' />
+				<SearchBar width='50%' height='60%' minWidth='380px' landing />
 			</div>
 			<GlassText />
 		</main>
