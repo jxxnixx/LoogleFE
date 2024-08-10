@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import imageCompression from 'browser-image-compression'
 import { atom, useAtom } from 'jotai'
 import { useRouter } from 'next/navigation'
+import { useTranslations } from 'next-intl'
 
 import { getKeywordSearchResult, postImageAndGetSearchResult } from '@/api/api'
 import { clc } from '@/utilities/classComposer'
@@ -35,6 +36,9 @@ const SearchBar = ({ width, minWidth, height }: Props) => {
 	const dropZoneRef = useRef<HTMLDivElement>(null)
 	const fileInputRef = useRef<HTMLInputElement>(null)
 
+	const t = useTranslations('searchBarText')
+	const a = useTranslations('alertText')
+
 	const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const value = event.target.value
 		setSearchValue(value)
@@ -50,7 +54,7 @@ const SearchBar = ({ width, minWidth, height }: Props) => {
 				setsearchResult(data[0])
 				router.push(`/search`)
 			} catch (error) {
-				alert('Error fetching data! try again')
+				alert(a('fetchData'))
 			} finally {
 				setLoading(false)
 			}
@@ -72,7 +76,7 @@ const SearchBar = ({ width, minWidth, height }: Props) => {
 				setsearchResult(data[0])
 				router.push(`/search`)
 			} catch (error) {
-				alert('Error uploading image! try again')
+				alert(a('uploadImage'))
 			} finally {
 				setLoading(false)
 			}
@@ -89,7 +93,7 @@ const SearchBar = ({ width, minWidth, height }: Props) => {
 			const compressedFile = await imageCompression(imageFile, options)
 			return compressedFile
 		} catch (error) {
-			alert('Error compressing image! try again')
+			alert(a('compressImage'))
 			throw error
 		}
 	}
@@ -165,7 +169,7 @@ const SearchBar = ({ width, minWidth, height }: Props) => {
 				<div ref={dropZoneRef} className={styles.dropZone} onDrop={handleDrop} onDragOver={handleDragOver}>
 					<span>{imageFile ? imageFile.name : 'Drag & drop your file here'}</span>
 					<button className={styles.fileInputButton} onClick={handleFileInputClick}>
-						{imageFile ? 'Change File' : 'Choose File'}
+						{imageFile ? t('change') : t('choose')}
 					</button>
 					<input
 						ref={fileInputRef}
@@ -179,7 +183,7 @@ const SearchBar = ({ width, minWidth, height }: Props) => {
 						className={clc(styles.searchButton, (!imageFile || loading) && styles.disabled)}
 						onClick={handleImageSearch}
 						disabled={!imageFile || loading}>
-						{loading ? <span className={styles.loadingIcon}></span> : 'Search'}
+						{loading ? <span className={styles.loadingIcon}></span> : t('search')}
 					</button>
 				</div>
 			)}

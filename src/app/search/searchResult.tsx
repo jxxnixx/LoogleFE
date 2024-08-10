@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react'
 import { useAtom, useAtomValue } from 'jotai'
+import { useTranslations } from 'next-intl'
 
 import { getKeywordSearchResult } from '@/api/api'
 import FillImg from '@/component/base/fillImg'
@@ -18,18 +19,18 @@ const SearchResult = () => {
 
 	const [error, setError] = useState(null)
 
-	if (loading) return <p>Loading...</p>
+	const t = useTranslations('searchResultText')
+
+	if (loading) return <p>{t('loading')}</p>
 	if (error) return <p>{error}</p>
-	if (!searchResult || searchResult.length === 0) return <p>No search results available. Please perform a search.</p>
+	if (!searchResult || searchResult.length === 0) return <p>{t('noResults')}</p>
 
 	const { productIds, similarities, products } = searchResult
-
-	console.log(searchResult)
 
 	return (
 		<div className={styles.wrap}>
 			{productIds.map((productId: any, index: number) => {
-				const brand = products[index].brandId === 1 ? 'shopCider' : 'unknown'
+				const brand = products[index].brandId === 1 ? t('cider') : t('unknown')
 
 				return (
 					<Item

@@ -1,5 +1,23 @@
 {
 	"landing": {
 		"title": "루글루글구글같은루글"
+	},
+	"searchBarText": {
+		"drag&drop": "파일을 여기로 드래그 앤 드롭하세요",
+		"change": "파일 변경",
+		"choose": "파일 선택",
+		"search": "검색"
+	},
+	"searchResultText": {
+		"loading": "로딩 중...",
+		"noResults": "검색 결과가 없습니다. 검색을 수행해 주세요.",
+		"cider": "shopCider",
+		"unknown": "알 수 없음"
+	},
+	"itemText": {},
+	"alertText": {
+		"fetchData": "데이터를 가져오는 중 오류가 발생했습니다! 다시 시도해 주세요",
+		"uploadImage": "이미지를 업로드하는 중 오류가 발생했습니다! 다시 시도해 주세요",
+		"compressImgae": "이미지를 압축하는 중 오류가 발생했습니다! 다시 시도해 주세요"
 	}
 }

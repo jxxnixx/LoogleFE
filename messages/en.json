@@ -1,5 +1,23 @@
 {
 	"landing": {
 		"title": "looglelooglelikegoogle"
+	},
+	"searchBarText": {
+		"drag&drop": "Drag & Drop your file here",
+		"change": "Change File",
+		"choose": "Choose File",
+		"search": "Search"
+	},
+	"searchResultText": {
+		"loading": "Loading...",
+		"noResults": "No search results available. Please perform a search.",
+		"cider": "shopCider",
+		"unknown": "unknown"
+	},
+	"itemText": {},
+	"alertText": {
+		"fetchData": "Error fetching data! try again",
+		"uploadImage": "Error uploading image! try again",
+		"compressImgae": "Error compressing image! try again"
 	}
 }

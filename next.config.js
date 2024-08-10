@@ -1,14 +1,10 @@
-/** @type {import('next').NextConfig} */
+const createNextIntlPlugin = require('next-intl/plugin')
+
+const withNextIntl = createNextIntlPlugin()
 
 const withImages = require('next-images')
 
-const createNextIntlPlugin = require('next-intl/plugin')
-
-const withNextIntl = createNextIntlPlugin({
-	locales: ['en', 'ko'],
-	defaultLocale: 'en',
-})
-
+/** @type {import('next').NextConfig} */
 const nextConfig = {
 	output: 'standalone',
 	reactStrictMode: true,

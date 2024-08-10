@@ -98,6 +98,12 @@
 	height: 24px;
 
 	z-index: 2;
+
+	&:hover,
+	&:focus,
+	&:active {
+		color: rgba($primary-default, 0.8);
+	}
 }
 
 .dropZone {
@@ -160,6 +166,12 @@
 		border-radius: 20px;
 
 		cursor: pointer;
+
+		&:hover,
+		&:focus,
+		&:active {
+			background-color: rgba($primary-default, 0.8);
+		}
 	}
 
 	.fileInput {
@@ -184,6 +196,12 @@
 	@include dynamicFontSize(16, 14, 14, 300);
 
 	@include flex(x, xCenter, yCenter);
+
+	&:hover,
+	&:focus,
+	&:active {
+		background-color: rgba($primary-default, 0.8);
+	}
 }
 
 .disabled {
