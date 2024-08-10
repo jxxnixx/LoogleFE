@@ -4,8 +4,6 @@ import React, { useEffect, useState } from 'react'
 import { useAtom, useAtomValue } from 'jotai'
 import { useTranslations } from 'next-intl'
 
-import { getKeywordSearchResult } from '@/api/api'
-import FillImg from '@/component/base/fillImg'
 import { inputValueAtom, loadingAtom, searchResultAtom } from '@/component/searchBar'
 
 import Item from './item'
