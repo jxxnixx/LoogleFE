@@ -10,7 +10,7 @@ import SearchResult from './searchResult'
 import styles from './search.module.scss'
 
 const page = () => {
-	const items = Array.from({ length: 16 }, (_, i) => `Item ${i + 1}`)
+	const items = Array.from({ length: 16 }, (_, i) => `Item ${i + 1}`).reverse()
 
 	return (
 		<section className={styles.search}>
@@ -35,7 +35,7 @@ const page = () => {
 								title={'ㅌㅌㅌㅌㅌㅌㅌㅌㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅌ'}
 								brand={'brandddd'}
 								price={32800}
-								similarity={80.1129318723}
+								similarity={index}
 								imgUrls={'/image/file.png'}
 								href={''}
 							/>

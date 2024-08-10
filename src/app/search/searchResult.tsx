@@ -25,20 +25,24 @@ const SearchResult = () => {
 
 	const { productIds, similarities, products } = searchResult
 
+	const reversedProductIds = [...productIds].reverse()
+	const reversedSimilarities = [...similarities].reverse()
+	const reversedProducts = [...products].reverse()
+
 	return (
 		<div className={styles.wrap}>
-			{productIds.map((productId: any, index: number) => {
-				const brand = products[index].brandId === 1 ? t('cider') : t('unknown')
+			{reversedProductIds.map((productId: any, index: number) => {
+				const brand = reversedProducts[index].brandId === 1 ? t('cider') : t('unknown')
 
 				return (
 					<Item
 						key={index}
-						title={products[index].title}
+						title={reversedProducts[index].title}
 						brand={brand}
-						price={products[index].price}
-						similarity={similarities[index]}
-						imgUrls={products[index].imgUrls[0]}
-						href={products[index].href}
+						price={reversedProducts[index].price}
+						similarity={reversedSimilarities[index]}
+						imgUrls={reversedProducts[index].imgUrls[0]}
+						href={reversedProducts[index].href}
 					/>
 				)
 			})}
