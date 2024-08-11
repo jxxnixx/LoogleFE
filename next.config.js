@@ -1,13 +1,24 @@
-/** @type {import('next').NextConfig} */
+const createNextIntlPlugin = require('next-intl/plugin')
+
+const withNextIntl = createNextIntlPlugin()
 
 const withImages = require('next-images')
 
+/** @type {import('next').NextConfig} */
 const nextConfig = {
 	output: 'standalone',
 	reactStrictMode: true,
 	transpilePackages: ['three'],
 	sassOptions: {
 		additionalData: `@use '/src/scss/abstracts/index' as *;`,
+	},
+	async rewrites() {
+		return [
+			{
+				source: '/:path*',
+				destination: `${process.env.NEXT_PUBLIC_LOOGLE_BASE}/:path*`,
+			},
+		]
 	},
 
 	images: {
@@ -23,4 +34,4 @@ const nextConfig = {
 	},
 }
 
-module.exports = withImages(nextConfig)
+module.exports = withNextIntl(withImages(nextConfig))

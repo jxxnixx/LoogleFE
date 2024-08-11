@@ -87,7 +87,7 @@
 			width: 100%;
 			height: fit-content;
 
-			@include flex(x, wrap, left, top);
+			@include flex(-x, wrap-reverse, xCenter, top);
 
 			overflow-y: scroll;
 

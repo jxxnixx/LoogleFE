@@ -83,7 +83,9 @@
 
 	@each $param in $param1, $param2, $param3, $param4 {
 		@if $param {
-			@if $param == wrap {
+			@if $param == wrap-reverse {
+				$wrapValue: wrap-reverse;
+			} @else if $param == wrap {
 				$wrapValue: wrap;
 			} @else if index(left right xCenter xAround xEvenly xBetween, $param) {
 				$alignment: if(index(row row-reverse, $direction), $justifyValue, $alignValue);

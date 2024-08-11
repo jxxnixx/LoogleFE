@@ -2,9 +2,8 @@
 
 import React, { useEffect, useState } from 'react'
 import { useAtom, useAtomValue } from 'jotai'
+import { useTranslations } from 'next-intl'
 
-import { getKeywordSearchResult } from '@/api/api'
-import FillImg from '@/component/base/fillImg'
 import { inputValueAtom, loadingAtom, searchResultAtom } from '@/component/searchBar'
 
 import Item from './item'
@@ -18,28 +17,32 @@ const SearchResult = () => {
 
 	const [error, setError] = useState(null)
 
-	if (loading) return <p>Loading...</p>
+	const t = useTranslations('searchResultText')
+
+	if (loading) return <p>{t('loading')}</p>
 	if (error) return <p>{error}</p>
-	if (!searchResult || searchResult.length === 0) return <p>No search results available. Please perform a search.</p>
+	if (!searchResult || searchResult.length === 0) return <p>{t('noResults')}</p>
 
 	const { productIds, similarities, products } = searchResult
 
-	console.log(searchResult)
+	const reversedProductIds = [...productIds].reverse()
+	const reversedSimilarities = [...similarities].reverse()
+	const reversedProducts = [...products].reverse()
 
 	return (
 		<div className={styles.wrap}>
-			{productIds.map((productId: any, index: number) => {
-				const brand = products[index].brandId === 1 ? 'shopCider' : 'unknown'
+			{reversedProductIds.map((productId: any, index: number) => {
+				const brand = reversedProducts[index].brandId === 1 ? t('cider') : t('unknown')
 
 				return (
 					<Item
 						key={index}
-						title={products[index].title}
+						title={reversedProducts[index].title}
 						brand={brand}
-						price={products[index].price}
-						similarity={similarities[index]}
-						imgUrls={products[index].imgUrls[0]}
-						href={products[index].href}
+						price={reversedProducts[index].price}
+						similarity={reversedSimilarities[index]}
+						imgUrls={reversedProducts[index].imgUrls[0]}
+						href={reversedProducts[index].href}
 					/>
 				)
 			})}
