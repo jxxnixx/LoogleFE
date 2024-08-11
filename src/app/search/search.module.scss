@@ -37,6 +37,11 @@
 		max-width: 1200px;
 
 		padding-inline: 20px;
+		padding-bottom: 20px;
+
+		@include MobileOnly {
+			padding-inline: 10px;
+		}
 
 		.header {
 			width: 100%;
@@ -54,19 +59,68 @@
 				height: 50px;
 
 				@include flex(x, left, yCenter);
-				@include dynamicFontSize(24, 24, 24, 700);
-
-				margin-right: 20px;
+				@include dynamicFontSize(24, 22, 20, 18, 700);
 
 				color: $white;
 
 				z-index: 2;
+
+				@include MobileOnly {
+					height: 24px;
+
+					margin-right: 8px;
+				}
 			}
 
 			.searchBarArea {
 				width: 60%;
-
 				height: 100%;
+
+				margin-inline: 1%;
+
+				@include flex(x, xBetween, yCenter);
+
+				.gemini {
+					width: 40%;
+					height: 100%;
+
+					@include flex(x, left, yCenter);
+
+					padding-top: 1.5%;
+
+					.geminiText {
+						@include dynamicFontSize(12, 11, 10, 9, 300);
+
+						color: $white;
+
+						margin-top: 2.4%;
+						margin-left: 4%;
+						margin-right: 2%;
+
+						@include Mobile {
+							opacity: 0;
+						}
+					}
+
+					.geminiIcon {
+						height: fit-content;
+
+						@include dynamicSize(width, 20%, 24%, 60%, 100%);
+
+						@include Mobile {
+							margin-bottom: 4%;
+							margin-left: -60%;
+
+							min-width: 40px;
+						}
+
+						@include MobileOnly {
+							margin-left: -84%;
+
+							min-width: 10px;
+						}
+					}
+				}
 			}
 		}
 
@@ -81,6 +135,10 @@
 
 			backdrop-filter: blur(10px);
 			-webkit-backdrop-filter: blur(10px);
+
+			@include MobileOnly {
+				padding: 10px;
+			}
 		}
 
 		.wrap {
@@ -90,6 +148,10 @@
 			@include flex(-x, wrap-reverse, xCenter, top);
 
 			overflow-y: scroll;
+
+			p {
+				@include dynamicFontSize(18, 17, 16, 14, 300);
+			}
 		}
 	}
 }

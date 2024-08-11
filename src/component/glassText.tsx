@@ -1,19 +1,11 @@
 'use client'
 
 import { Suspense, useEffect, useRef, useState } from 'react'
-import {
-	ContactShadows,
-	Environment,
-	Float,
-	Image,
-	Lightformer,
-	MeshTransmissionMaterial,
-	Text3D,
-	useTexture,
-} from '@react-three/drei'
-import { Canvas, useFrame, useLoader, useThree } from '@react-three/fiber'
+import { Environment, Float, MeshTransmissionMaterial, Text3D } from '@react-three/drei'
+import { Canvas, useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
-import { TextureLoader } from 'three'
+
+import styles from './glassText.module.scss'
 
 type GlassProps = {
 	character: string
@@ -69,12 +61,39 @@ const Text = ({ character, index }: GlassProps) => {
 	)
 }
 
+const CameraController = () => {
+	const cameraRef = useRef<THREE.Vector3 | null>(null)
+
+	useFrame((state, delta) => {
+		const camera = state.camera
+		const targetZ = window.innerWidth < 900 ? 30 : 20
+		const targetPosition = new THREE.Vector3(0, 0, targetZ)
+
+		if (!cameraRef.current) {
+			cameraRef.current = targetPosition.clone()
+		}
+
+		cameraRef.current.lerp(targetPosition, delta * 2)
+		camera.position.copy(cameraRef.current)
+		camera.updateProjectionMatrix()
+	})
+
+	return null
+}
+
 const GlassText = () => {
 	const text = 'LOOGLE'
 
 	return (
-		<div style={{ width: '100vw', height: '100vh', backgroundColor: '#fff' }}>
-			<Canvas camera={{ position: [0, 0, 20], fov: 50 }}>
+		<div className={styles.glassText}>
+			<Canvas
+				camera={{
+					position: [0, 2, window.innerWidth < 900 ? 30 : 20],
+					fov: 50,
+					near: 0.1,
+					far: 100,
+				}}>
+				<CameraController />
 				<Environment
 					files='/image/sky.hdr'
 					background
