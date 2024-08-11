@@ -29,8 +29,6 @@ const SearchResult = () => {
 	const reversedSimilarities = [...similarities].reverse()
 	const reversedProducts = [...products].reverse()
 
-	console.log(reversedProducts)
-
 	return (
 		<div className={styles.wrap}>
 			{reversedProductIds.map((productId: any, index: number) => {

@@ -19,13 +19,11 @@ type Props = {
 const Item = ({ title, brand, price, similarity, imgUrls, href }: Props) => {
 	const truncatedSimilarity = Math.floor(similarity * 10000) / 100
 
-	console.log(imgUrls)
-
 	return (
 		<div className={styles.space}>
 			<div className={styles.item}>
-				<Link href={href} className={styles.link}>
-					<Carousel autoplay className={styles.carousel}>
+				<Link href={href} className={styles.link} target='_blank'>
+					<Carousel autoplay className={styles.carousel} autoplaySpeed={5000}>
 						{imgUrls.map((url, index) => (
 							<div key={index} className={styles.imgArea}>
 								<FillImg key={index} src={url} alt={`img-${index}`} className={styles.img} />

@@ -73,7 +73,12 @@ const GlassText = () => {
 	const text = 'LOOGLE'
 
 	return (
-		<div style={{ width: '100vw', height: '100vh', backgroundColor: '#fff' }}>
+		<div
+			style={{
+				width: '100vw',
+				height: '100vh',
+				backgroundColor: 'background: linear-gradient(to bottom, $sky-default 3%, $sky-light 55%, $sky-dark 90%)',
+			}}>
 			<Canvas camera={{ position: [0, 0, 20], fov: 50 }}>
 				<Environment
 					files='/image/sky.hdr'

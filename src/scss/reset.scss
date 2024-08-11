@@ -217,7 +217,8 @@ textarea {
 }
 
 input {
-	&:focus {
+	&:focus,
+	&:active {
 		outline: none;
 	}
 }

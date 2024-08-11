@@ -65,8 +65,33 @@
 
 			.searchBarArea {
 				width: 60%;
-
 				height: 100%;
+
+				@include flex(x, xBetween, yCenter);
+
+				.gemini {
+					width: 40%;
+					height: 100%;
+
+					@include flex(x, left, yCenter);
+
+					padding-top: 1.5%;
+
+					span {
+						@include dynamicFontSize(12, 11, 10, 300);
+
+						color: $white;
+
+						margin-top: 2.4%;
+						margin-left: 4%;
+						margin-right: 2%;
+					}
+
+					.geminiIcon {
+						width: 20%;
+						height: fit-content;
+					}
+				}
 			}
 		}
 

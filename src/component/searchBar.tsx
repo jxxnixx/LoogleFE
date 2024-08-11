@@ -69,7 +69,7 @@ const SearchBar = ({ width, minWidth, height, landing }: Props) => {
 			setImageFile(file)
 			const previewUrl = URL.createObjectURL(file)
 			setImagePreviewUrl(previewUrl)
-			setShowDropZone(true) // 이미지를 선택하거나 드롭하면 Dropzone이 자동으로 열림
+			setShowDropZone(true)
 		} else {
 			alert(a('invalidFileType'))
 			setImageFile(null)
@@ -196,6 +196,7 @@ const SearchBar = ({ width, minWidth, height, landing }: Props) => {
 			<label className={styles.searchLabel}>
 				<div className={styles.icon}>
 					<Icon path='magnifier' alt='search' className={styles.magnifier} />
+					<Image src={'/svg/bard.svg'} alt='bard' width={20} height={20} className={styles.bard} />
 				</div>
 
 				<input
@@ -242,6 +243,13 @@ const SearchBar = ({ width, minWidth, height, landing }: Props) => {
 						disabled={!imageFile || loading}>
 						{loading && imageFile ? <span className={styles.loadingIconForImage}></span> : t('search')}
 					</button>
+				</div>
+			)}
+
+			{landing && (
+				<div className={styles.gemini}>
+					<span>Powered By</span>
+					<Image src={'/svg/gemini.svg'} alt='Gemini' width={50} height={10} className={styles.geminiIcon} />
 				</div>
 			)}
 		</div>

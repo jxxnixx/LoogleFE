@@ -1,4 +1,5 @@
 import React from 'react'
+import Image from 'next/image'
 import Link from 'next/link'
 
 import FillImg from '@/component/base/fillImg'
@@ -23,6 +24,11 @@ const page = () => {
 					</Link>
 					<div className={styles.searchBarArea}>
 						<SearchBar width='90%' height='100%' minWidth='280px' />
+
+						<div className={styles.gemini}>
+							<span>Powered By</span>
+							<Image src={'/svg/gemini.svg'} alt='Gemini' width={50} height={10} className={styles.geminiIcon} />
+						</div>
 					</div>
 				</header>
 
