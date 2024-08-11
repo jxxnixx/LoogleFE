@@ -27,14 +27,7 @@
 	}
 }
 
-@mixin dynamicSize(
-	$property,
-	$size,
-	$tabletSize: $size,
-	$mobileSize: $tabletSize,
-	$mobileOnlySize: $mobileSize,
-	$folderSize: $mobileOnlySize
-) {
+@mixin dynamicSize($property, $size, $tabletSize: $size, $mobileSize: $tabletSize, $mobileOnlySize: $mobileSize) {
 	#{$property}: $size;
 
 	@include Tablet() {
@@ -47,10 +40,6 @@
 
 	@include MobileOnly() {
 		#{$property}: $mobileOnlySize;
-	}
-
-	@include Folder() {
-		#{$property}: $folderSize;
 	}
 }
 

@@ -10,6 +10,10 @@
 
 	padding: 14px;
 
+	@include Mobile {
+		width: 160px;
+	}
+
 	@include MobileOnly {
 		width: 140px;
 

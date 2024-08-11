@@ -301,7 +301,7 @@
 	span {
 		height: 100%;
 
-		@include dynamicFontSize(15, 14, 12, 10, 350);
+		@include dynamicFontSize(15, 13, 12, 10, 350);
 
 		color: $white;
 
@@ -311,7 +311,8 @@
 	}
 
 	.geminiIcon {
-		width: 10%;
 		height: fit-content;
+
+		@include dynamicSize(width, 10%, 11%);
 	}
 }
