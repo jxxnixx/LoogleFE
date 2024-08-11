@@ -24,7 +24,7 @@ const Item = ({ title, brand, price, similarity, imgUrls, href }: Props) => {
 			<div className={styles.item}>
 				<Link href={href} className={styles.link} target='_blank'>
 					<Carousel autoplay className={styles.carousel} autoplaySpeed={5000}>
-						{imgUrls.map((url, index) => (
+						{imgUrls.slice(0, 2).map((url, index) => (
 							<div key={index} className={styles.imgArea}>
 								<FillImg key={index} src={url} alt={`img-${index}`} className={styles.img} />
 							</div>

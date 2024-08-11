@@ -182,10 +182,10 @@
 		}
 
 		@include Mobile {
-			width: 60%;
+			width: 70%;
 			height: 20%;
 
-			top: 50%;
+			top: 52%;
 		}
 	}
 
@@ -216,8 +216,8 @@
 		height: 120px;
 
 		@include Mobile {
-			width: 80px;
-			height: 80px;
+			width: 84px;
+			height: 84px;
 		}
 	}
 
@@ -252,7 +252,7 @@
 	}
 
 	@include Mobile {
-		height: 24%;
+		height: 20%;
 	}
 }
 
