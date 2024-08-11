@@ -1,7 +1,5 @@
 import React from 'react'
-import { useTranslations } from 'next-intl'
 
-import FillImg from '@/component/base/fillImg'
 import GlassText from '@/component/glassText'
 import SearchBar from '@/component/searchBar'
 
