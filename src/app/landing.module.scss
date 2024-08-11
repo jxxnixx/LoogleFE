@@ -1,4 +1,6 @@
 .landing {
+	position: relative;
+
 	width: 100vw;
 	height: 100vh;
 
@@ -18,6 +20,10 @@
 	height: 10vh;
 
 	z-index: 1;
+
+	@include MobileOnly {
+		top: 44%;
+	}
 }
 
 .background {

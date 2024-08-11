@@ -11,7 +11,7 @@ export default function Home() {
 	return (
 		<main className={styles.landing}>
 			<div className={styles.searchBarArea}>
-				<SearchBar width='50%' height='60%' minWidth='380px' landing />
+				<SearchBar width='50%' height='60%' minWidth='340px' landing />
 			</div>
 			<GlassText />
 		</main>

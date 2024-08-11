@@ -249,7 +249,7 @@ const SearchBar = ({ width, minWidth, height, landing }: Props) => {
 			{landing && (
 				<div className={styles.gemini}>
 					<span>Powered By</span>
-					<Image src={'/svg/gemini.svg'} alt='Gemini' width={50} height={10} className={styles.geminiIcon} />
+					<Image src={'/image/gemini.png'} alt='Gemini' width={50} height={10} className={styles.geminiIcon} />
 				</div>
 			)}
 		</div>

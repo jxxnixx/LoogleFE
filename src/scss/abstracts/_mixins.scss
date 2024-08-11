@@ -21,6 +21,12 @@
 	}
 }
 
+@mixin MobileOnly() {
+	@media screen and (max-width: $mobileOnly) {
+		@content;
+	}
+}
+
 @mixin dynamicSize(
 	$property,
 	$size,
@@ -48,7 +54,7 @@
 	}
 }
 
-@mixin dynamicFontSize($size, $tabletSize: $size, $mobileSize: $tabletSize, $weight) {
+@mixin dynamicFontSize($size, $tabletSize: $size, $mobileSize: $tabletSize, $mobileOnlySize: $mobileSize, $weight) {
 	@include FontSize($size, $weight);
 
 	@include Tablet() {
@@ -57,6 +63,10 @@
 
 	@include Mobile() {
 		@include FontSize($mobileSize, $weight);
+	}
+
+	@include MobileOnly() {
+		@include FontSize($mobileOnlySize, $weight);
 	}
 }
 

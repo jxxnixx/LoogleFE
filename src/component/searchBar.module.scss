@@ -42,7 +42,7 @@
 
 	box-shadow: 0 4px 10px rgba($black, 0.2);
 
-	@include dynamicFontSize(18, 16, 14, 400);
+	@include dynamicFontSize(18, 16, 14, 12, 400);
 
 	outline: none;
 }
@@ -163,7 +163,7 @@
 
 		opacity: 0.8;
 
-		@include dynamicFontSize(16, 14, 14, 300);
+		@include dynamicFontSize(16, 14, 14, 12, 300);
 
 		padding: 10px;
 		border-radius: 20px;
@@ -175,6 +175,10 @@
 		&:focus,
 		&:active {
 			background-color: rgba($primary-default, 0.8);
+		}
+
+		@include MobileOnly {
+			width: 60%;
 		}
 	}
 
@@ -191,7 +195,7 @@
 		overflow: hidden;
 		text-overflow: ellipsis;
 
-		@include dynamicFontSize(16, 14, 12, 300);
+		@include dynamicFontSize(16, 14, 12, 10, 300);
 	}
 
 	.imagePreviewWrap {
@@ -228,7 +232,7 @@
 
 	border-radius: 0px 0px 20px 20px;
 
-	@include dynamicFontSize(16, 14, 14, 300);
+	@include dynamicFontSize(16, 14, 14, 12, 300);
 
 	@include flex(x, xCenter, yCenter);
 
@@ -297,7 +301,7 @@
 	span {
 		height: 100%;
 
-		@include dynamicFontSize(15, 14, 12, 350);
+		@include dynamicFontSize(15, 14, 12, 10, 350);
 
 		color: $white;
 

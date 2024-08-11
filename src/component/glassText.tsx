@@ -88,7 +88,7 @@ const GlassText = () => {
 		<div className={styles.glassText}>
 			<Canvas
 				camera={{
-					position: [0, 0, window.innerWidth < 900 ? 30 : 20],
+					position: [0, 2, window.innerWidth < 900 ? 30 : 20],
 					fov: 50,
 					near: 0.1,
 					far: 100,
