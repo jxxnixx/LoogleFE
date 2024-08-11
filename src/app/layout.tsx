@@ -1,4 +1,5 @@
 import React from 'react'
+import { AntdRegistry } from '@ant-design/nextjs-registry'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { NextIntlClientProvider } from 'next-intl'
@@ -27,7 +28,9 @@ export default async function RootLayout({
 		<html lang={locale}>
 			<body className={inter.className}>
 				<NextIntlClientProvider messages={messages}>
-					<JotaiProviders>{children}</JotaiProviders>
+					<JotaiProviders>
+						<AntdRegistry>{children}</AntdRegistry>
+					</JotaiProviders>
 				</NextIntlClientProvider>
 			</body>
 		</html>

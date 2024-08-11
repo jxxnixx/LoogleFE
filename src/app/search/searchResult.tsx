@@ -29,6 +29,8 @@ const SearchResult = () => {
 	const reversedSimilarities = [...similarities].reverse()
 	const reversedProducts = [...products].reverse()
 
+	console.log(reversedProducts)
+
 	return (
 		<div className={styles.wrap}>
 			{reversedProductIds.map((productId: any, index: number) => {
@@ -41,7 +43,7 @@ const SearchResult = () => {
 						brand={brand}
 						price={reversedProducts[index].price}
 						similarity={reversedSimilarities[index]}
-						imgUrls={reversedProducts[index].imgUrls[0]}
+						imgUrls={reversedProducts[index].imgUrls}
 						href={reversedProducts[index].href}
 					/>
 				)
