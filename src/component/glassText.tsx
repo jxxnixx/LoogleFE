@@ -63,10 +63,26 @@ const Text = ({ character, index }: GlassProps) => {
 
 const CameraController = () => {
 	const cameraRef = useRef<THREE.Vector3 | null>(null)
+	const [targetZ, setTargetZ] = useState(20)
+
+	useEffect(() => {
+		const handleResize = () => {
+			if (typeof window !== 'undefined') {
+				setTargetZ(window.innerWidth < 900 ? 30 : 20)
+			}
+		}
+
+		handleResize()
+
+		window.addEventListener('resize', handleResize)
+
+		return () => {
+			window.removeEventListener('resize', handleResize)
+		}
+	}, [])
 
 	useFrame((state, delta) => {
 		const camera = state.camera
-		const targetZ = window.innerWidth < 900 ? 30 : 20
 		const targetPosition = new THREE.Vector3(0, 0, targetZ)
 
 		if (!cameraRef.current) {
@@ -80,7 +96,6 @@ const CameraController = () => {
 
 	return null
 }
-
 const GlassText = () => {
 	const text = 'LOOGLE'
 
@@ -88,7 +103,7 @@ const GlassText = () => {
 		<div className={styles.glassText}>
 			<Canvas
 				camera={{
-					position: [0, 2, window.innerWidth < 900 ? 30 : 20],
+					position: [0, 2, typeof window !== 'undefined' && window.innerWidth < 900 ? 30 : 20],
 					fov: 50,
 					near: 0.1,
 					far: 100,
