@@ -128,7 +128,7 @@
 
 	width: 100%;
 	min-height: 200px;
-	height: 20vh;
+	height: 32vh;
 
 	border-radius: 20px;
 
@@ -150,13 +150,17 @@
 	-ms-user-select: none;
 	user-select: none;
 
+	@include Mobile {
+		height: 20vh;
+	}
+
 	.fileInputButton {
 		position: absolute;
 
 		width: 40%;
-		height: 20%;
+		height: 16%;
 
-		top: 50%;
+		top: 60%;
 
 		color: $black;
 		background-color: $primary-default;
@@ -177,8 +181,11 @@
 			background-color: rgba($primary-default, 0.8);
 		}
 
-		@include MobileOnly {
+		@include Mobile {
 			width: 60%;
+			height: 20%;
+
+			top: 50%;
 		}
 	}
 
@@ -205,11 +212,13 @@
 
 		top: 5%;
 
-		width: fit-content;
-		min-width: 80px;
-		max-width: 100px;
+		width: 120px;
+		height: 120px;
 
-		height: 80px;
+		@include Mobile {
+			width: 80px;
+			height: 80px;
+		}
 	}
 
 	.imagePreview {
@@ -224,7 +233,7 @@
 	color: $black;
 
 	width: 100%;
-	height: 24%;
+	height: 18%;
 
 	background-color: $primary-default;
 
@@ -240,6 +249,10 @@
 	&:focus,
 	&:active {
 		background-color: rgba($primary-default, 0.8);
+	}
+
+	@include Mobile {
+		height: 24%;
 	}
 }
 
@@ -270,6 +283,11 @@
 	height: 20px;
 
 	animation: spin 1s linear infinite;
+
+	@include MobileOnly {
+		width: 16px;
+		height: 16px;
+	}
 }
 
 .loadingIconForImage {
@@ -285,6 +303,11 @@
 	height: 20px;
 
 	animation: spin 1s linear infinite;
+
+	@include MobileOnly {
+		width: 16px;
+		height: 16px;
+	}
 }
 
 .gemini {
