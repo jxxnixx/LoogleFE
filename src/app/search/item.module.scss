@@ -1,0 +1,163 @@
+.space {
+	width: 210px;
+	height: auto;
+	aspect-ratio: 3/4;
+
+	@include flex(y, xCenter, yCenter);
+
+	flex-grow: 1;
+	flex-shrink: 0;
+
+	padding: 14px;
+
+	// border: 1px solid #b2bec3;
+
+	.item {
+		position: relative;
+
+		width: 100%;
+		height: 100%;
+
+		// border: 1px solid #b2bec3;
+		border-radius: 20px;
+		text-align: center;
+
+		@include flex(y, xCenter, bottom);
+
+		overflow: hidden;
+		object-fit: cover;
+
+		.link {
+			position: absolute;
+
+			top: 0;
+			left: 0;
+
+			width: 100%;
+			height: 100%;
+
+			div {
+				position: relative;
+
+				width: 100%;
+				height: 100%;
+			}
+		}
+
+		.carousel {
+			position: absolute;
+
+			top: 0;
+			left: 0;
+
+			width: 100%;
+			height: 100%;
+
+			overflow: hidden;
+			object-fit: contain;
+		}
+
+		.imgArea {
+			position: relative;
+
+			width: 100%;
+			height: 100%;
+		}
+
+		.img {
+			width: 100%;
+			height: 100%;
+		}
+
+		.title {
+			position: absolute;
+
+			top: 8px;
+
+			width: 90%;
+			height: fit-content;
+
+			@include flex(x, xCenter);
+			@include dynamicFontSize(16, 15, 14, 500);
+
+			text-shadow: 0 1px 1px rgba($black, 0.3);
+
+			span {
+				width: 90%;
+
+				color: $black;
+
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
+		}
+
+		.area {
+			width: 100%;
+			padding: 14px;
+		}
+
+		.info {
+			position: relative;
+
+			width: 100%;
+			// height: 40%;
+
+			.details {
+				position: absolute;
+
+				left: 0;
+				bottom: 0;
+
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+
+				@include flex(y, left, top);
+
+				span {
+					text-shadow: 0 1px 1px rgba($black, 0.4);
+					white-space: normal;
+
+					color: $black;
+
+					@include dynamicFontSize(14, 13, 12, 300);
+				}
+			}
+
+			.ratio {
+				position: absolute;
+
+				background: rgba($white, 0.4);
+				border-radius: 20px;
+				box-shadow: 0 4px 4px rgba($black, 0.4);
+
+				backdrop-filter: blur(10px);
+				-webkit-backdrop-filter: blur(10px);
+
+				width: fit-content;
+				height: fit-content;
+				padding: 10px;
+
+				border-radius: 14px;
+
+				color: #ff4631;
+
+				@include dynamicFontSize(18, 17, 16, 700);
+
+				right: 0;
+				bottom: 0;
+			}
+		}
+	}
+}
+
+.wrap {
+	width: 100%;
+	height: fit-content;
+
+	@include flex(-x, wrap-reverse, xCenter, top);
+
+	overflow-y: scroll;
+}
