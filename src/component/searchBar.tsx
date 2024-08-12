@@ -102,6 +102,8 @@ const SearchBar = ({ width, minWidth, height, landing }: Props) => {
 
 				setsearchResult(data[0])
 
+				setShowDropZone(false)
+
 				router.push(`/search`)
 			} catch (error) {
 				alert(a('uploadImage'))
