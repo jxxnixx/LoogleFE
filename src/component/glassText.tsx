@@ -68,7 +68,7 @@ const CameraController = () => {
 	useEffect(() => {
 		const handleResize = () => {
 			if (typeof window !== 'undefined') {
-				setTargetZ(window.innerWidth < 900 ? 30 : 20)
+				setTargetZ(window.innerWidth < 400 ? 40 : window.innerWidth < 900 ? 30 : 20)
 			}
 		}
 
@@ -103,7 +103,15 @@ const GlassText = () => {
 		<div className={styles.glassText}>
 			<Canvas
 				camera={{
-					position: [0, 2, typeof window !== 'undefined' && window.innerWidth < 900 ? 30 : 20],
+					position: [
+						0,
+						2,
+						typeof window !== 'undefined' && window.innerWidth < 400
+							? 40
+							: typeof window !== 'undefined' && window.innerWidth < 900
+								? 30
+								: 20,
+					],
 					fov: 50,
 					near: 0.1,
 					far: 100,

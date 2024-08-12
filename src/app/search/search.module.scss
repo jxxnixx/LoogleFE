@@ -91,7 +91,7 @@
 					.geminiText {
 						@include dynamicFontSize(12, 11, 10, 9, 300);
 
-						color: $white;
+						color: rgba($black, 0.5);
 
 						margin-top: 2.4%;
 						margin-left: 4%;

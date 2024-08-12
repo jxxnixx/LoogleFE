@@ -326,7 +326,7 @@
 
 		@include dynamicFontSize(15, 13, 12, 10, 350);
 
-		color: $white;
+		color: rgba($black, 0.5);
 
 		margin-top: 0.2%;
 		margin-left: -4%;
