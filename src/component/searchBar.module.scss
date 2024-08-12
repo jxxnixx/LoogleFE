@@ -127,7 +127,7 @@
 	position: relative;
 
 	width: 100%;
-	min-height: 200px;
+	min-height: 220px;
 	height: 32vh;
 
 	border-radius: 20px;
@@ -151,6 +151,7 @@
 	user-select: none;
 
 	@include Mobile {
+		min-height: 200px;
 		height: 20vh;
 	}
 
@@ -167,9 +168,9 @@
 
 		opacity: 0.8;
 
-		@include dynamicFontSize(16, 14, 14, 12, 300);
+		@include dynamicFontSize(15, 13.5, 12, 12, 300);
 
-		padding: 10px;
+		padding: 1%;
 		border-radius: 20px;
 		box-shadow: 0 4px 10px rgba($black, 0.2);
 
@@ -179,6 +180,10 @@
 		&:focus,
 		&:active {
 			background-color: rgba($primary-default, 0.8);
+		}
+
+		@include Tablet {
+			width: 55%;
 		}
 
 		@include Mobile {
@@ -214,6 +219,13 @@
 
 		width: 120px;
 		height: 120px;
+
+		@include Tablet {
+			top: 8%;
+
+			width: 110px;
+			height: 110px;
+		}
 
 		@include Mobile {
 			width: 84px;
